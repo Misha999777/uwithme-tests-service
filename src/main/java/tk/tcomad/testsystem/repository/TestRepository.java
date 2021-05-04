@@ -2,7 +2,7 @@ package tk.tcomad.testsystem.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import tk.tcomad.testsystem.model.Test;
+import tk.tcomad.testsystem.model.persistence.Test;
 
 import java.util.List;
 import java.util.Optional;

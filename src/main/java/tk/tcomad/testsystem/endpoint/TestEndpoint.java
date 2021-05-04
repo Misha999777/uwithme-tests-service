@@ -1,13 +1,12 @@
 package tk.tcomad.testsystem.endpoint;
 
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import tk.tcomad.testsystem.exception.BadRequestException;
 import tk.tcomad.testsystem.exception.NotFoundException;
-import tk.tcomad.testsystem.model.Test;
+import tk.tcomad.testsystem.model.persistence.Test;
 import tk.tcomad.testsystem.repository.TestRepository;
 
 import java.util.List;
@@ -46,7 +45,7 @@ public class TestEndpoint {
         Test testToSave = test.toBuilder()
                 .authorId(getUserId())
                 .questions(Set.of())
-                .testSessions(Set.of())
+//                .testSessions(Set.of())
                 .build();
 
         return testRepository.save(testToSave);

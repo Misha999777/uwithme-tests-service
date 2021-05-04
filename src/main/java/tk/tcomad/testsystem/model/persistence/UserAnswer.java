@@ -1,4 +1,4 @@
-package tk.tcomad.testsystem.model;
+package tk.tcomad.testsystem.model.persistence;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

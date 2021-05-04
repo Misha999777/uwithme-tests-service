@@ -1,4 +1,4 @@
-package tk.tcomad.testsystem.model;
+package tk.tcomad.testsystem.model.persistence;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +8,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,13 +32,11 @@ public class Test implements Serializable {
 
     private Integer questionsNumber;
 
-    @OneToMany(fetch = FetchType.EAGER,
-            mappedBy = "test",
-            orphanRemoval = true)
+    @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "testId")
     private Set<Question> questions;
 
-    @OneToMany(fetch = FetchType.EAGER,
-            mappedBy = "test",
-            orphanRemoval = true)
+    @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "testId")
     private Set<TestSession> testSessions;
 }
