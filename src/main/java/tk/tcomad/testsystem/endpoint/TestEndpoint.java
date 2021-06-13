@@ -6,6 +6,8 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import tk.tcomad.testsystem.exception.BadRequestException;
 import tk.tcomad.testsystem.exception.NotFoundException;
+import tk.tcomad.testsystem.model.api.TestApi;
+import tk.tcomad.testsystem.model.mapper.TestMapper;
 import tk.tcomad.testsystem.model.persistence.Test;
 import tk.tcomad.testsystem.repository.TestRepository;
 
@@ -24,6 +26,8 @@ public class TestEndpoint {
 
     @NonNull
     private final TestRepository testRepository;
+    @NonNull
+    private final TestMapper testMapper;
 
     @GetMapping
     public List<Test> getTests() {
@@ -31,40 +35,45 @@ public class TestEndpoint {
     }
 
     @GetMapping("/{testId}")
-    public Test getTest(@PathVariable String testId) {
+    public TestApi getTest(@PathVariable String testId) {
         return testRepository.findByAuthorIdAndId(getUserId(), testId)
+                .map(testMapper::toTestApi)
                 .orElseThrow(() -> new NotFoundException("Test not found"));
     }
 
     @PostMapping
-    public Test saveTest(@RequestBody Test test) {
-        if (Objects.nonNull(test.getId())) {
+    public TestApi saveTest(@RequestBody TestApi testApi) {
+        if (Objects.nonNull(testApi.getId())) {
             throw new BadRequestException("Use PUT for update");
         }
 
-        Test testToSave = test.toBuilder()
+        Test testToSave = testMapper.toTestDb(testApi).toBuilder()
                 .authorId(getUserId())
                 .questions(Set.of())
-//                .testSessions(Set.of())
+                .testSessions(Set.of())
                 .build();
 
-        return testRepository.save(testToSave);
+        Test savedTest = testRepository.save(testToSave);
+
+        return testMapper.toTestApi(savedTest);
     }
 
     @PutMapping("/{testId}")
-    public Test updateTest(@PathVariable String testId, @RequestBody @NonNull Test test) {
-        Test savedTest = Optional.ofNullable(testId)
+    public TestApi updateTest(@PathVariable String testId, @RequestBody @NonNull TestApi testApi) {
+        Test savedTestDb = Optional.ofNullable(testId)
                 .map(testRepository::findById)
                 .orElseThrow(() -> new BadRequestException("Use POST for save"))
                 .orElseThrow(() -> new NotFoundException("Test not found"));
 
-        Test testToSave = savedTest.toBuilder()
-                .name(test.getName())
-                .durationMinutes(test.getDurationMinutes())
-                .questionsNumber(test.getQuestionsNumber())
+        Test testToSave = savedTestDb.toBuilder()
+                .name(testApi.getName())
+                .durationMinutes(testApi.getDurationMinutes())
+                .questionsNumber(testApi.getQuestionsNumber())
                 .build();
 
-        return testRepository.save(testToSave);
+        Test savedTest = testRepository.save(testToSave);
+
+        return testMapper.toTestApi(savedTest);
     }
 
     @DeleteMapping("/{testId}")

@@ -5,13 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import tk.tcomad.testsystem.exception.NotFoundException;
+import tk.tcomad.testsystem.model.api.QuestionApi;
 import tk.tcomad.testsystem.model.mapper.QuestionMapper;
 import tk.tcomad.testsystem.model.persistence.Question;
-import tk.tcomad.testsystem.model.api.QuestionApi;
 import tk.tcomad.testsystem.repository.QuestionRepository;
 import tk.tcomad.testsystem.repository.TestRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Secured("ROLE_ADMIN")
@@ -27,13 +28,16 @@ public class QuestionEndpoint {
     private final QuestionMapper questionMapper;
 
     @GetMapping
-    public List<Question> getTestQuestions(@RequestParam String testId) {
-        return questionRepository.findAllByTestId(testId);
+    public List<QuestionApi> getTestQuestions(@RequestParam String testId) {
+        return questionRepository.findAllByTestId(testId).stream()
+                .map(questionMapper::toQuestionApi)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{questionId}")
-    public Question getQuestion(@PathVariable Long questionId) {
+    public QuestionApi getQuestion(@PathVariable Long questionId) {
         return questionRepository.findById(questionId)
+                .map(questionMapper::toQuestionApi)
                 .orElseThrow(() -> new NotFoundException("Question not found"));
     }
 
@@ -48,7 +52,7 @@ public class QuestionEndpoint {
             throw new NotFoundException("Test not found");
         }
 
-        Question toSave = questionMapper.toQuestion(question);
+        Question toSave = questionMapper.toQuestionDb(question);
         Question saved = questionRepository.save(toSave);
 
         return questionMapper.toQuestionApi(saved);

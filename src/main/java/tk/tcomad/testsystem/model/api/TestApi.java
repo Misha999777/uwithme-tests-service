@@ -1,12 +1,16 @@
 package tk.tcomad.testsystem.model.api;
 
-import lombok.Value;
-import tk.tcomad.testsystem.model.persistence.Question;
-import tk.tcomad.testsystem.model.persistence.TestSession;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
-@Value
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
 public class TestApi {
 
     String id;
@@ -14,6 +18,6 @@ public class TestApi {
     String authorId;
     Integer durationMinutes;
     Integer questionsNumber;
-    Set<Question> questions;
-    Set<TestSession> testSessions;
+    Set<QuestionApi> questions;
+    Set<TestSessionApi> testSessions;
 }

@@ -1,14 +1,28 @@
 package tk.tcomad.testsystem.model.mapper;
 
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import tk.tcomad.testsystem.config.MapperConfiguration;
-import tk.tcomad.testsystem.model.persistence.Answer;
 import tk.tcomad.testsystem.model.api.AnswerApi;
+import tk.tcomad.testsystem.model.persistence.Answer;
+
+import java.util.List;
 
 @Mapper(config = MapperConfiguration.class)
 public interface AnswerMapper {
 
         AnswerApi toAnswerApi(Answer answer);
 
-        Answer toAnswer(AnswerApi answerApi);
+        @Named("toStudentAnswerApis")
+        @IterableMapping(qualifiedByName="toStudentAnswerApi")
+        List<AnswerApi> toStudentAnswerApis(List<Answer> answers);
+
+        @Named("toStudentAnswerApi")
+        @Mapping(ignore = true, target = "correct")
+        AnswerApi toStudentAnswerApi(Answer answer);
+
+        Answer toAnswerDb(AnswerApi answerApi);
+
 }

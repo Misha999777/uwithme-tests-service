@@ -1,18 +1,25 @@
 package tk.tcomad.testsystem.model.api;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
-import java.util.List;
+import java.time.Instant;
+import java.util.Set;
 
-@Value
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
 public class TestSessionApi {
 
     Long id;
     Integer durationMinutes;
     String userId;
-    Date startTime;
+    Instant startTime;
+    Integer elapsedTime;
     Float score;
-    List<QuestionApi> questions;
-    List<UserAnswerApi> userAnswers;
+    Set<QuestionApi> questions;
+    Set<UserAnswerApi> userAnswers;
 }

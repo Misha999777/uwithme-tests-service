@@ -17,5 +17,5 @@ public class Answer implements Serializable {
 
     private String text;
 
-    private Boolean isCorrect;
+    private boolean correct;
 }

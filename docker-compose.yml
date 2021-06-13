@@ -7,5 +7,6 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: testsystem
     ports:
       - "5432:5432"
