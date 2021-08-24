@@ -39,6 +39,11 @@ public class TestSessionEndpoint {
 
     @PostMapping
     public TestSessionApi beginTest(@PathVariable String testId) {
+        testSessionRepository.findByUserIdAndTestId(UserContextHolder.getUserId(), testId)
+                             .ifPresent((ts) -> {
+                                 throw new RuntimeException();
+                             });
+
         TestSession testSession = testSessionBuilder.withTestId(testId).build();
 
         testSessionRepository.save(testSession);
@@ -49,9 +54,9 @@ public class TestSessionEndpoint {
     @PutMapping
     public TestSessionApi endTest(@RequestBody @NonNull TestSessionApi testSessionApi) {
         TestSession testSession = testSessionRepository.findById(testSessionApi.getId())
-                .orElseThrow(() -> new BadRequestException(""));
+                                                       .orElseThrow(() -> new BadRequestException(""));
 
-        if(!Objects.equals(testSession.getUserId(), UserContextHolder.getUserId())) {
+        if (!Objects.equals(testSession.getUserId(), UserContextHolder.getUserId())) {
             throw new BadRequestException("");
         }
 

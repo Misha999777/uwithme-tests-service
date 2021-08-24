@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -47,5 +48,5 @@ public class TestSession implements Serializable {
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    private List<UserAnswer> userAnswers;
+    private Map<Long, Set<String>> userAnswersByQuestionId;
 }

@@ -20,6 +20,8 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,34 +36,28 @@ public class TestSessionService {
     @NonNull
     private final UserAnswerMapper userAnswerMapper;
 
+    @SuppressWarnings("unused")
     @Named("getTestId")
     public String getTestId(Long testSessionId) {
         return testSessionRepository.findById(testSessionId)
-                .orElseThrow(() -> new NotFoundException("TestSession not found"))
-                .getTestId();
+                                    .orElseThrow(() -> new NotFoundException("TestSession not found"))
+                                    .getTestId();
     }
 
     public void saveTestSession(TestSession testSession, TestSessionApi userSession) {
-        Map<Long, List<Answer>> answersByQuestionId = testSession.getQuestions().stream()
-                .collect(Collectors.toMap(Question::getId, Question::getAnswers));
+        Test test = testRepository.findById(testSession.getTestId())
+                                  .orElseThrow();
+        Map<Long, Set<String>> userAnswers = userSession.getUserAnswersByQuestionId();
 
-        Set<UserAnswerApi> userAnswers = userSession.getUserAnswers();
-
-        long correctAnswers = userAnswers.stream()
-                .filter(userAnswer -> compareAnswers(answersByQuestionId, userAnswer))
-                .count();
-
-        Test test = testRepository.findById(testSession.getTestId()).orElseThrow();
-
+        long correctAnswers = countCorrectAnswers(testSession.getQuestions(), userAnswers);
         Float score = (float) correctAnswers / test.getQuestionsNumber() * 100;
 
         TestSession testSessionToSave = testSession.toBuilder()
-                .elapsedTime(elapsedTime(userSession.getStartTime(), test.getDurationMinutes()))
-                .score(score)
-                .userAnswers(userSession.getUserAnswers().stream()
-                        .map(userAnswerMapper::toUserAnswer)
-                        .collect(Collectors.toList()))
-                .build();
+                                                   .elapsedTime(elapsedTime(userSession.getStartTime(),
+                                                                            test.getDurationMinutes()))
+                                                   .score(score)
+                                                   .userAnswersByQuestionId(userAnswers)
+                                                   .build();
 
         testSessionRepository.save(testSessionToSave);
     }
@@ -78,11 +74,27 @@ public class TestSessionService {
         return (int) difference.getEpochSecond() / 60;
     }
 
-    private boolean compareAnswers(Map<Long, List<Answer>> answersByQuestionId, UserAnswerApi userAnswer) {
-        List<String> userAnswers = userAnswer.getAnswerTexts();
-        List<Answer> answers = answersByQuestionId.get(userAnswer.getQuestionId());
-        List<String> stringAnswers = answers.stream().map(Answer::getText).collect(Collectors.toList());
+    private long countCorrectAnswers(Set<Question> questions, Map<Long, Set<String>> userAnswersByQuestionId) {
+        if (Objects.isNull(userAnswersByQuestionId)) {
+            return 0;
+        }
 
-        return stringAnswers.containsAll(userAnswer.getAnswerTexts()) && stringAnswers.size() == userAnswers.size();
+        return Optional.ofNullable(questions)
+                       .orElse(Set.of())
+                       .stream()
+                       .filter(question -> compareAnswers(question.getAnswers(),
+                                                          userAnswersByQuestionId.get(question.getId())))
+                       .count();
+    }
+
+    private boolean compareAnswers(List<Answer> questionAnswers, Set<String> userAnswers) {
+        Set<String> correctAnswers = Optional.ofNullable(questionAnswers)
+                                             .orElse(List.of())
+                                             .stream()
+                                             .filter(Answer::isCorrect)
+                                             .map(Answer::getText)
+                                             .collect(Collectors.toSet());
+
+        return Objects.equals(correctAnswers, userAnswers);
     }
 }

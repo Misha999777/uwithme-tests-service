@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.Map;
 import java.util.Set;
 
 @Data
@@ -21,5 +22,5 @@ public class TestSessionApi {
     Integer elapsedTime;
     Float score;
     Set<QuestionApi> questions;
-    Set<UserAnswerApi> userAnswers;
+    Map<Long, Set<String>> userAnswersByQuestionId;
 }
