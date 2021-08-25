@@ -39,15 +39,15 @@ public class QuestionEndpoint {
     @GetMapping
     public List<QuestionApi> getTestQuestions(@RequestParam String testId) {
         return questionRepository.findAllByTestId(testId).stream()
-                .map(questionMapper::toQuestionApi)
-                .collect(Collectors.toList());
+                                 .map(questionMapper::toQuestionApi)
+                                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{questionId}")
     public QuestionApi getQuestion(@PathVariable Long questionId) {
         return questionRepository.findById(questionId)
-                .map(questionMapper::toQuestionApi)
-                .orElseThrow(() -> new NotFoundException("Question not found"));
+                                 .map(questionMapper::toQuestionApi)
+                                 .orElseThrow(() -> new NotFoundException("Question not found"));
     }
 
     @PostMapping

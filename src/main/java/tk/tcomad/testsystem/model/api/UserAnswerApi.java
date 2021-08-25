@@ -1,11 +1,11 @@
 package tk.tcomad.testsystem.model.api;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -13,6 +13,6 @@ import java.util.List;
 @Builder(toBuilder = true)
 public class UserAnswerApi {
 
-    Long questionId;
-    List<String> answerTexts;
+    private Long questionId;
+    private List<String> answerTexts;
 }

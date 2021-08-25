@@ -16,7 +16,7 @@ public interface AnswerMapper {
         AnswerApi toAnswerApi(Answer answer);
 
         @Named("toStudentAnswerApis")
-        @IterableMapping(qualifiedByName="toStudentAnswerApi")
+        @IterableMapping(qualifiedByName = "toStudentAnswerApi")
         List<AnswerApi> toStudentAnswerApis(List<Answer> answers);
 
         @Named("toStudentAnswerApi")

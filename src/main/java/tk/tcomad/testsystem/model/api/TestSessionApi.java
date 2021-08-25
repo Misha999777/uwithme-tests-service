@@ -15,13 +15,13 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class TestSessionApi {
 
-    Long id;
-    Integer durationMinutes;
-    String userId;
-    String userName;
-    Instant startTime;
-    Integer elapsedTime;
-    Float score;
-    Set<QuestionApi> questions;
-    Map<Long, Set<String>> userAnswersByQuestionId;
+    private Long id;
+    private Integer durationMinutes;
+    private String userId;
+    private String userName;
+    private Instant startTime;
+    private Integer elapsedTime;
+    private Float score;
+    private Set<QuestionApi> questions;
+    private Map<Long, Set<String>> userAnswersByQuestionId;
 }

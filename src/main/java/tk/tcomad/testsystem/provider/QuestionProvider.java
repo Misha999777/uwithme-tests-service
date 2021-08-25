@@ -23,7 +23,7 @@ public class QuestionProvider {
 
     public Set<Question> getQuestionsByTestId(String testId) {
         Test test = testRepository.findById(testId)
-                .orElseThrow(() -> new NotFoundException("Test not found"));
+                                  .orElseThrow(() -> new NotFoundException("Test not found"));
 
         List<Question> questions = new ArrayList<>(test.getQuestions());
         Collections.shuffle(questions);

@@ -16,6 +16,7 @@ public class TestService {
     @SuppressWarnings("unused")
     @Named("getTestDuration")
     public Integer getTestDuration(String testId) {
-        return testRepository.findById(testId).orElseThrow().getDurationMinutes();
+        return testRepository.findById(testId)
+                             .orElseThrow().getDurationMinutes();
     }
 }

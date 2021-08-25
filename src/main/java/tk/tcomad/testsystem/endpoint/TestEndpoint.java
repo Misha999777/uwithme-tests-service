@@ -47,8 +47,8 @@ public class TestEndpoint {
     @GetMapping("/{testId}")
     public TestApi getTest(@PathVariable String testId) {
         return testRepository.findByAuthorIdAndId(getUserId(), testId)
-                .map(testMapper::toTestApi)
-                .orElseThrow(() -> new NotFoundException("Test not found"));
+                             .map(testMapper::toTestApi)
+                             .orElseThrow(() -> new NotFoundException("Test not found"));
     }
 
     @PostMapping
@@ -58,10 +58,10 @@ public class TestEndpoint {
         }
 
         Test testToSave = testMapper.toTestDb(testApi).toBuilder()
-                .authorId(getUserId())
-                .questions(Set.of())
-                .testSessions(Set.of())
-                .build();
+                                    .authorId(getUserId())
+                                    .questions(Set.of())
+                                    .testSessions(Set.of())
+                                    .build();
 
         Test savedTest = testRepository.save(testToSave);
 
@@ -71,15 +71,15 @@ public class TestEndpoint {
     @PutMapping("/{testId}")
     public TestApi updateTest(@PathVariable String testId, @RequestBody @NonNull TestApi testApi) {
         Test savedTestDb = Optional.ofNullable(testId)
-                .map(testRepository::findById)
-                .orElseThrow(() -> new BadRequestException("Use POST for save"))
-                .orElseThrow(() -> new NotFoundException("Test not found"));
+                                   .map(testRepository::findById)
+                                   .orElseThrow(() -> new BadRequestException("Use POST for save"))
+                                   .orElseThrow(() -> new NotFoundException("Test not found"));
 
         Test testToSave = savedTestDb.toBuilder()
-                .name(testApi.getName())
-                .durationMinutes(testApi.getDurationMinutes())
-                .questionsNumber(testApi.getQuestionsNumber())
-                .build();
+                                     .name(testApi.getName())
+                                     .durationMinutes(testApi.getDurationMinutes())
+                                     .questionsNumber(testApi.getQuestionsNumber())
+                                     .build();
 
         Test savedTest = testRepository.save(testToSave);
 

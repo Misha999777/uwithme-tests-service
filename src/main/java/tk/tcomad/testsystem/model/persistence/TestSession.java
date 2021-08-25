@@ -35,23 +35,15 @@ public class TestSession implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String testId;
-
     private String userId;
-
     private String userName;
-
     private Instant startTime;
-
     private Integer elapsedTime;
-
     private Float score;
-
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     private Set<Question> questions;
-
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     private Map<Long, Set<String>> userAnswersByQuestionId;

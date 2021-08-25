@@ -14,10 +14,11 @@ public class OAuth2Config {
     public AuthorizedClientServiceOAuth2AuthorizedClientManager authorizedClientManager(
             ClientRegistrationRepository clientRegistrationRepository,
             OAuth2AuthorizedClientService oAuth2AuthorizedClientService) {
-        var authorizedClientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
-                                                                            .clientCredentials()
-                                                                            .refreshToken()
-                                                                            .build();
+        var authorizedClientProvider =
+                OAuth2AuthorizedClientProviderBuilder.builder()
+                                                     .clientCredentials()
+                                                     .refreshToken()
+                                                     .build();
 
         var authorizedClientManager =
                 new AuthorizedClientServiceOAuth2AuthorizedClientManager(clientRegistrationRepository,

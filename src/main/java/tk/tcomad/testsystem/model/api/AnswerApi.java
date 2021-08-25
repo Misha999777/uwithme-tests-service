@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class AnswerApi {
 
-    String text;
-    boolean correct;
+    private String text;
+    private boolean correct;
 }

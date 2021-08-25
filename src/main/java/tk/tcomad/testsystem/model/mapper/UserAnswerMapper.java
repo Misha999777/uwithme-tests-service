@@ -5,6 +5,7 @@ import tk.tcomad.testsystem.config.MapperConfiguration;
 import tk.tcomad.testsystem.model.api.UserAnswerApi;
 import tk.tcomad.testsystem.model.persistence.UserAnswer;
 
+@SuppressWarnings("unused")
 @Mapper(config = MapperConfiguration.class)
 public interface UserAnswerMapper {
 

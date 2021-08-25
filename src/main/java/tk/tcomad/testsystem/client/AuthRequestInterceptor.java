@@ -26,11 +26,11 @@ public class AuthRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(final RequestTemplate requestTemplate) {
-        OAuth2AuthorizedClient authorizedClient = authorizedClientManager.authorize(OAuth2AuthorizeRequest
-                                                                                            .withClientRegistrationId(
-                                                                                                    registrationId)
-                                                                                            .principal(principal)
-                                                                                            .build());
+
+        OAuth2AuthorizeRequest authorizeRequest = OAuth2AuthorizeRequest.withClientRegistrationId(registrationId)
+                                                                        .principal(principal)
+                                                                        .build();
+        OAuth2AuthorizedClient authorizedClient = authorizedClientManager.authorize(authorizeRequest);
         if (Objects.nonNull(authorizedClient)) {
             requestTemplate.header(AUTHORIZATION, "Bearer " + authorizedClient.getAccessToken().getTokenValue());
         }

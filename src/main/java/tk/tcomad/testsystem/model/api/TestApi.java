@@ -1,11 +1,11 @@
 package tk.tcomad.testsystem.model.api;
 
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -13,11 +13,11 @@ import java.util.Set;
 @Builder(toBuilder = true)
 public class TestApi {
 
-    String id;
-    String name;
-    String authorId;
-    Integer durationMinutes;
-    Integer questionsNumber;
-    Set<QuestionApi> questions;
-    Set<TestSessionApi> testSessions;
+    private String id;
+    private String name;
+    private String authorId;
+    private Integer durationMinutes;
+    private Integer questionsNumber;
+    private Set<QuestionApi> questions;
+    private Set<TestSessionApi> testSessions;
 }

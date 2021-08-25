@@ -13,7 +13,7 @@ import tk.tcomad.testsystem.service.TestSessionService;
         uses = {UserAnswerMapper.class,
                 QuestionMapper.class,
                 TestService.class,
-        TestSessionService.class})
+                TestSessionService.class})
 public interface TestSessionMapper {
 
     @Mapping(source = "questions", target = "questions", qualifiedByName = "toStudentQuestionApi")
