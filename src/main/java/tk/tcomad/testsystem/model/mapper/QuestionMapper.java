@@ -20,5 +20,4 @@ public interface QuestionMapper {
     QuestionApi toStudentQuestionApi(Question question);
 
     Question toQuestionDb(QuestionApi questionApi);
-
 }

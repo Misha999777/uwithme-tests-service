@@ -1,21 +1,5 @@
 package tk.tcomad.testsystem.service;
 
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import org.mapstruct.Named;
-import org.springframework.stereotype.Service;
-import tk.tcomad.testsystem.exception.BadRequestException;
-import tk.tcomad.testsystem.exception.NotFoundException;
-import tk.tcomad.testsystem.model.api.TestSessionApi;
-import tk.tcomad.testsystem.model.api.UserAnswerApi;
-import tk.tcomad.testsystem.model.mapper.UserAnswerMapper;
-import tk.tcomad.testsystem.model.persistence.Answer;
-import tk.tcomad.testsystem.model.persistence.Question;
-import tk.tcomad.testsystem.model.persistence.Test;
-import tk.tcomad.testsystem.model.persistence.TestSession;
-import tk.tcomad.testsystem.repository.TestRepository;
-import tk.tcomad.testsystem.repository.TestSessionRepository;
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -25,6 +9,20 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.mapstruct.Named;
+import org.springframework.stereotype.Service;
+import tk.tcomad.testsystem.exception.BadRequestException;
+import tk.tcomad.testsystem.exception.NotFoundException;
+import tk.tcomad.testsystem.model.api.TestSessionApi;
+import tk.tcomad.testsystem.model.persistence.Answer;
+import tk.tcomad.testsystem.model.persistence.Question;
+import tk.tcomad.testsystem.model.persistence.Test;
+import tk.tcomad.testsystem.model.persistence.TestSession;
+import tk.tcomad.testsystem.repository.TestRepository;
+import tk.tcomad.testsystem.repository.TestSessionRepository;
+
 @Service
 @RequiredArgsConstructor
 public class TestSessionService {
@@ -33,8 +31,6 @@ public class TestSessionService {
     private final TestSessionRepository testSessionRepository;
     @NonNull
     private final TestRepository testRepository;
-    @NonNull
-    private final UserAnswerMapper userAnswerMapper;
 
     @SuppressWarnings("unused")
     @Named("getTestId")
@@ -47,15 +43,19 @@ public class TestSessionService {
     public void saveTestSession(TestSession testSession, TestSessionApi userSession) {
         Test test = testRepository.findById(testSession.getTestId())
                                   .orElseThrow();
+        Set<Question> questions = test.getQuestions().stream()
+                                      .filter(question -> testSession.getQuestions().contains(question))
+                                      .collect(Collectors.toSet());
         Map<Long, Set<String>> userAnswers = userSession.getUserAnswersByQuestionId();
 
-        long correctAnswers = countCorrectAnswers(testSession.getQuestions(), userAnswers);
+        long correctAnswers = countCorrectAnswers(questions, userAnswers);
         Float score = (float) correctAnswers / test.getQuestionsNumber() * 100;
 
         TestSession testSessionToSave = testSession.toBuilder()
                                                    .elapsedTime(elapsedTime(userSession.getStartTime(),
                                                                             test.getDurationMinutes()))
                                                    .score(score)
+                                                   .questions(questions)
                                                    .userAnswersByQuestionId(userAnswers)
                                                    .build();
 

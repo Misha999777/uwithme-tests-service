@@ -1,22 +1,32 @@
 package tk.tcomad.testsystem.endpoint;
 
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.*;
-import tk.tcomad.testsystem.exception.BadRequestException;
-import tk.tcomad.testsystem.exception.NotFoundException;
-import tk.tcomad.testsystem.model.api.TestApi;
-import tk.tcomad.testsystem.model.mapper.TestMapper;
-import tk.tcomad.testsystem.model.persistence.Test;
-import tk.tcomad.testsystem.repository.TestRepository;
+import static tk.tcomad.testsystem.security.UserContextHolder.getUserId;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import static tk.tcomad.testsystem.security.UserContextHolder.getUserId;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import tk.tcomad.testsystem.exception.BadRequestException;
+import tk.tcomad.testsystem.exception.NotFoundException;
+import tk.tcomad.testsystem.model.api.TestApi;
+import tk.tcomad.testsystem.model.mapper.TestMapper;
+import tk.tcomad.testsystem.model.persistence.Test;
+import tk.tcomad.testsystem.repository.TestRepository;
 
 @RestController
 @Secured("ROLE_ADMIN")
@@ -77,6 +87,8 @@ public class TestEndpoint {
     }
 
     @DeleteMapping("/{testId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
     public void deleteTest(@PathVariable String testId) {
         testRepository.deleteByAuthorIdAndId(getUserId(), testId);
     }
