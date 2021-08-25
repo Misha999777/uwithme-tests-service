@@ -105,7 +105,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>tk.tcomad.test.Main</mainClass>
+                    <mainClass>tk.tcomad.testsystem.Main</mainClass>
                     <executable>true</executable>
                 </configuration>
             </plugin>
