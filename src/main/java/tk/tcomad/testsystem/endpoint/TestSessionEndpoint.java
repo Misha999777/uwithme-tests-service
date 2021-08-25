@@ -25,7 +25,6 @@ import tk.tcomad.testsystem.security.UserContextHolder;
 import tk.tcomad.testsystem.service.TestSessionService;
 
 @RestController
-@Secured("ROLE_STUDENT")
 @RequestMapping("/test/{testId}/session")
 @RequiredArgsConstructor
 public class TestSessionEndpoint {
