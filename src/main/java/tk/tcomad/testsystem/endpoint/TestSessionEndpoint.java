@@ -38,7 +38,7 @@ public class TestSessionEndpoint {
     @NonNull
     private final TestSessionMapper testSessionMapper;
 
-    @Secured("ROLE_ADMIN")
+    @Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
     @GetMapping("/{sessionId}")
     public TestSessionApi getSession(@PathVariable Long sessionId) {
         TestSession testSession = testSessionRepository.findById(sessionId).orElseThrow();
@@ -46,7 +46,7 @@ public class TestSessionEndpoint {
         return testSessionMapper.toTestSessionApi(testSession);
     }
 
-    @Secured("ROLE_ADMIN")
+    @Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
     @DeleteMapping("/{sessionId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSession(@PathVariable Long sessionId) {

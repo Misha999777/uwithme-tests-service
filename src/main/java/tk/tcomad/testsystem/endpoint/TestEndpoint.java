@@ -29,7 +29,7 @@ import tk.tcomad.testsystem.model.persistence.Test;
 import tk.tcomad.testsystem.repository.TestRepository;
 
 @RestController
-@Secured("ROLE_ADMIN")
+@Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
 @RequestMapping("test")
 @RequiredArgsConstructor
 public class TestEndpoint {

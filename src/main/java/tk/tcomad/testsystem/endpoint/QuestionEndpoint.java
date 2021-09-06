@@ -24,7 +24,7 @@ import tk.tcomad.testsystem.repository.QuestionRepository;
 import tk.tcomad.testsystem.repository.TestRepository;
 
 @RestController
-@Secured("ROLE_ADMIN")
+@Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
 @RequestMapping("questions")
 @RequiredArgsConstructor
 public class QuestionEndpoint {
