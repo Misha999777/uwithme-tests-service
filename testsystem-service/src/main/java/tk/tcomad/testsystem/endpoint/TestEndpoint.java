@@ -30,7 +30,7 @@ import tk.tcomad.testsystem.repository.TestRepository;
 
 @RestController
 @Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
-@RequestMapping("test")
+@RequestMapping("tests")
 @RequiredArgsConstructor
 public class TestEndpoint {
 

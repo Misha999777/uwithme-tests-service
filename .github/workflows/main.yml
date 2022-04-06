@@ -14,6 +14,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
       - name: Grant execute permission for mvnw
         run: chmod +x mvnw
       - name: Package with Mavwn
@@ -22,7 +26,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: TestSystem
-          path: ./target/TestSystem.jar
+          path: ./testsystem-service/target/TestSystem.jar
           retention-days: 1
   deploy:
     needs: build-archive
