@@ -1,6 +1,7 @@
 # Project exclude paths
 /.idea/
 /log/
+/testsystem-ui/target/
 /testsystem-ui/build/
 /testsystem-ui/node_modules/
 /testsystem-ui/package-lock.json
