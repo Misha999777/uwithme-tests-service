@@ -1,0 +1,21 @@
+.center {
+    text-align: center;
+    word-break: break-word;
+}
+
+.left {
+    max-width: 80%;
+    display: inline-block;
+    margin-bottom: 35px;
+}
+
+.item {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    word-break: break-word;
+}
+
+.padding {
+    padding-bottom: 25px;
+    padding-top: 25px;
+}

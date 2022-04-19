@@ -25,7 +25,7 @@ import tk.tcomad.testsystem.repository.TestRepository;
 
 @RestController
 @Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
-@RequestMapping("questions")
+@RequestMapping("tests/{testId}/questions")
 @RequiredArgsConstructor
 public class QuestionEndpoint {
 
@@ -51,10 +51,12 @@ public class QuestionEndpoint {
     }
 
     @PostMapping
-    public QuestionApi saveQuestion(@RequestBody QuestionApi question) {
-        if (!testRepository.existsById(question.getTestId())) {
+    public QuestionApi saveQuestion(@PathVariable String testId, @RequestBody QuestionApi question) {
+        if (!testRepository.existsById(testId)) {
             throw new NotFoundException("Test not found");
         }
+
+        question.setTestId(testId);
 
         Question toSave = questionMapper.toQuestionDb(question);
         Question saved = questionRepository.save(toSave);

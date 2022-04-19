@@ -1,0 +1,29 @@
+<h1>Текст вопроса</h1>
+<angular-editor [(ngModel)]="selectedQuestion.text" [config]="config"></angular-editor>
+<br/>
+<h1>Варианты ответов</h1>
+<mat-accordion>
+    <div *ngFor="let _ of [].constructor(selectedQuestion.answers.length + 1); let i = index">
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{selectedQuestion.answers[i] == null ? 'Добавьте вариант ответа' : selectedQuestion.answers[i].text}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-form-field class="example-full-width">
+                <mat-label>Select variants (separate by comma)</mat-label>
+                <input matInput
+                       value="{{selectedQuestion.answers[i]?.text}}"
+                       (input)="answerChanged(text.value, correct.checked, i)"
+                       #text>
+            </mat-form-field>
+            <mat-slide-toggle
+                    checked="{{selectedQuestion.answers[i] == null ? false : selectedQuestion.answers[i].correct}}"
+                    (change)="answerChanged(text.value, correct.checked, i)"
+                    #correct>
+            </mat-slide-toggle>
+        </mat-expansion-panel>
+    </div>
+</mat-accordion>
+<br>
+<button mat-raised-button (click)="save()">Сохранить</button>

@@ -21,7 +21,7 @@
                 <version>${exec-maven-plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>install npm</id>
+                        <id>npm install</id>
                         <configuration>
                             <workingDirectory>./</workingDirectory>
                             <executable>npm</executable>

@@ -1,0 +1,13 @@
+<div style="font-size: 1.3rem">
+    <div class="control">
+        <br>
+        <cd-timer class="bootstrap-timer" format="ms" [countdown]="true" [startTime]="300"></cd-timer>
+        <br>
+        <button mat-raised-button >Закончить тест</button>
+    </div>
+    <testsystem-question-viewer style="font-size: 1.5rem" [question]="state.selectedQuestion"></testsystem-question-viewer>
+    <br>
+    <div class="paginator">
+        <testsystem-paginator></testsystem-paginator>
+    </div>
+</div>

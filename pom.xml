@@ -46,7 +46,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                    <exec-maven-plugin.argument>build:dev</exec-maven-plugin.argument>
+                    <exec-maven-plugin.argument>build</exec-maven-plugin.argument>
             </properties>
         </profile>
         <profile>

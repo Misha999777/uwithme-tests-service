@@ -1,0 +1,22 @@
+.bootstrap-timer {
+    color: #303030;
+    background-color: #eeeeee;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #c9c9c9;
+    border-radius: 8px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.control {
+    width: fit-content;
+    display: block;
+    text-align: center;
+}
+
+.paginator {
+    padding-top: 25px;
+    display: block;
+    text-align: center;
+}

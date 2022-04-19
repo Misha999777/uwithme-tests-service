@@ -1,0 +1,19 @@
+.pagination {
+    display: inline-block;
+    text-align:center;
+}
+
+.page-item {
+    display: inline-block;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.page-item.active {
+    background-color: rebeccapurple;
+    color: white;
+}
+
+.page-item:hover:not(.active) {
+    background-color: #ddd;
+}
