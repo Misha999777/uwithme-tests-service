@@ -1,11 +1,7 @@
 # TestSystem Service
 
-<h2 style="color:red; padding-bottom: 0">
-This is a WIP Angular version of the TestSystem Project
-</h2>
-<h3 style="color:red; padding-top: 0; padding-bottom:25px">
-Please use "react" branch to access old React version of the TestSystem
-</h3>
+![](https://img.shields.io/static/v1?label=&message=This%20is%20a%20WIP%20Angular%20version%20of%20the%20TestSystem%20Project&color=red)
+![](https://img.shields.io/static/v1?label=&message=Please%20use%20%22react%22%20branch%20to%20access%20old%20React%20version%20of%20the%20TestSystem&color=red)
 
 [![Build Status](https://github.com/Misha999777/TestSystem/workflows/Main/badge.svg)](https://github.com/Misha999777/TestSystem/actions?query=workflow%3A%22Main%22)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
