@@ -14,14 +14,16 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v4.3
+        with:
+          maven-version: 3.8.2
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - name: Grant execute permission for mvnw
-        run: chmod +x mvnw
       - name: Package with Mavwn
-        run: ./mvnw package -Dprod=true
+        run: mvn package -Dprod=true
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
         with:
