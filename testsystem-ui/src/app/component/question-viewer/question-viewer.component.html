@@ -1,17 +1,23 @@
 <div class="center">
-    <div class="padding" [innerHTML]="question.text"></div>
+    <div class="padding" [innerHTML]="selectedQuestion.text"></div>
     <br/>
     <div class="left">
-        <mat-radio-group *ngIf="!question.isMultipleChoice">
-            <div *ngFor="let answer of question.answers; let i = index">
+        <mat-radio-group *ngIf="!selectedQuestion.isMultipleChoice">
+            <div *ngFor="let answer of selectedQuestion.answers; let i = index">
                 <div style="display: flex;">
-                    <mat-radio-button class="item" (click)="selectAnswer(i)" value="{{answer.text}}"></mat-radio-button>
+                    <mat-radio-button class="item" value="{{answer.text}}"
+                                      (click)="selectAnswer(i)"
+                                      [checked]="userAnswers.includes(i)">
+                    </mat-radio-button>
                     <span style="padding-top: 12px">{{answer.text}}</span>
                 </div>
             </div>
         </mat-radio-group>
-        <section *ngIf="question.isMultipleChoice">
-            <mat-checkbox class="item" *ngFor="let answer of question.answers; let i = index" (click)="selectAnswer(i)">
+        <section *ngIf="selectedQuestion.isMultipleChoice">
+            <mat-checkbox class="item"
+                          *ngFor="let answer of selectedQuestion.answers; let i = index"
+                          (click)="selectAnswer(i)"
+                          [checked]="userAnswers.includes(i)">
                 {{answer.text}}
             </mat-checkbox>
         </section>

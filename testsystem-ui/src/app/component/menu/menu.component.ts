@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
     tests: Observable<State> = this.store.select("admin");
 
     constructor(private router: Router,
-                private store: Store<{ admin: State }>,
+                private store: Store<{admin: State}>,
                 private dataService: DataService) {
         this.calculateMobile();
     }

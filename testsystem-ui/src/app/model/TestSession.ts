@@ -9,5 +9,5 @@ export class TestSession {
     elapsedTime: number;
     score: number;
     questions: Question[];
-    userAnswersByQuestionId: Map<number, string[]>
+    userAnswersByQuestionId: Map<number, number[]>
 }

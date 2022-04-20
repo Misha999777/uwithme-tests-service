@@ -1,8 +1,9 @@
 # Project exclude paths
 /.idea/
 /log/
+/testsystem-service/target/
 /testsystem-ui/target/
-/testsystem-ui/build/
+/testsystem-ui/dist/
 /testsystem-ui/node_modules/
 /testsystem-ui/package-lock.json
-/testsystem-service/target/
+/testsystem-ui/.angular/
