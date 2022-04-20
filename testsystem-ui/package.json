@@ -28,7 +28,7 @@
     "ngrx-store-localstorage": "^13.0.1",
     "ngx-spinner": "^13.1.1",
     "rxjs": "~7.5.0",
-    "tcomad-oidc": "^1.0.25",
+    "tcomad-oidc": "^1.0.35",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

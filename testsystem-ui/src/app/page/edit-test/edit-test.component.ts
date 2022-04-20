@@ -39,13 +39,14 @@ export class EditTestComponent {
         observable.subscribe(() => this.store.dispatch(reloadTests()));
     }
 
-    deleteTest() {
-        this.dataService.deleteTest(this.selectedTest.id)
-            .subscribe(() => this.store.dispatch(reloadTests()));
+    generateLink() {
+        let url = Constants.home + "/start?testId=" + this.selectedTest.id;
+        this.clipboard.copy(url);
+        this.snackBar.open("Ссылка скопирована", null,{duration: 5000});
     }
 
-    deleteQuestion(questionId: number) {
-        this.dataService.deleteQuestion(this.selectedTest.id, questionId)
+    deleteTest() {
+        this.dataService.deleteTest(this.selectedTest.id)
             .subscribe(() => this.store.dispatch(reloadTests()));
     }
 
@@ -54,9 +55,13 @@ export class EditTestComponent {
             .then(() => this.store.dispatch(setQuestion({question: question})));
     }
 
-    generateLink() {
-        let url = Constants.home + "/start?testId=" + this.selectedTest.id;
-        this.clipboard.copy(url);
-        this.snackBar.open("Ссылка скопирована", null,{duration: 5000});
+    deleteQuestion(questionId: number) {
+        this.dataService.deleteQuestion(this.selectedTest.id, questionId)
+            .subscribe(() => this.store.dispatch(reloadTests()));
+    }
+
+    deleteResult(resultId: number) {
+        this.dataService.deleteResult(this.selectedTest.id, resultId)
+            .subscribe(() => this.store.dispatch(reloadTests()));
     }
 }

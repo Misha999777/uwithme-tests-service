@@ -1,29 +1,30 @@
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
 import {Injectable} from "@angular/core";
 import {Store} from "@ngrx/store";
-import {UserUtility} from "../utility/user.utility";
+import {UserService} from "./user.service";
 import {StudentState} from "../store/student/student.reducer";
-import {State} from "../store/admin/admin.reducer";
 
 @Injectable({
     providedIn: 'root'
 })
-export class RedirectGuardService implements CanActivate {
+export class GuardService implements CanActivate {
 
     studentState: StudentState;
-    adminState: State;
 
     constructor(private router: Router,
-                private userUtility: UserUtility,
-                private store: Store<{student: StudentState, admin: State}>) {
+                private userUtility: UserService,
+                private store: Store<{student: StudentState}>) {
 
         this.store.select("student")
             .subscribe(state => this.studentState = state);
-        this.store.select("admin")
-            .subscribe(state => this.adminState = state);
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean  {
+        if (!this.userUtility.isLoggedIn()) {
+            this.redirect(route, "auth");
+            return false;
+        }
+
         if (this.studentState?.testSession) {
             this.redirect(route, "session");
         } else if (!this.userUtility.isAdmin()) {

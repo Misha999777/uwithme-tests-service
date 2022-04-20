@@ -2,20 +2,20 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Constants} from "../../constants/constants";
 import {Test} from "../model/Test";
-import {from, mergeMap, Observable} from "rxjs";
-import {AuthServiceFactory} from "./auth.service.factory";
+import {mergeMap, Observable} from "rxjs";
 import {Question} from "../model/Question";
 import {TestSession} from "../model/TestSession";
+import {UserService} from "./user.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class DataService {
 
-    constructor(private httpClient: HttpClient, private authServiceFactory: AuthServiceFactory) {}
+    constructor(private httpClient: HttpClient, private userService: UserService) {}
 
     private request<T>(request: { method: string, url: string, body?: object }): Observable<T> {
-        return from(this.authServiceFactory.getAuthService().getToken()).pipe(
+        return this.userService.getToken().pipe(
             mergeMap((token) => {
                 const headers = new HttpHeaders()
                     .set('Authorization', "Bearer " + token)
@@ -77,6 +77,13 @@ export class DataService {
         return this.request<Question>({
             method: 'DELETE',
             url: Constants.backend + '/tests/' + testId + '/questions/' + questionId
+        })
+    }
+
+    deleteResult(testId: string, sessionId: number): Observable<TestSession> {
+        return this.request<TestSession>({
+            method: 'DELETE',
+            url: Constants.backend + '/test/' + testId + '/session/' + sessionId
         })
     }
 

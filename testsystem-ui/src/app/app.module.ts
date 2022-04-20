@@ -20,12 +20,10 @@ import {EditQuestionComponent} from "./page/edit-question/edit-question.componen
 import {MatExpansionModule} from "@angular/material/expansion";
 import {StoreModule} from "@ngrx/store";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
-import {ViewResultsComponent} from "./page/view-results/view-results.component";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {PaginatorComponent} from "./component/paginator/paginator.component";
 import {MatChipsModule} from "@angular/material/chips";
-import {AuthServiceFactory} from "./service/auth.service.factory";
 import {NgxSpinnerModule} from "ngx-spinner";
 import {AnimationService} from "./service/animation.service";
 import {EffectsModule} from "@ngrx/effects";
@@ -40,7 +38,9 @@ import {QuestionViewerComponent} from "./component/question-viewer/question-view
 import {CdTimerModule} from "angular-cd-timer";
 import {TestSessionComponent} from "./page/test-session/test-session.component";
 import {MatDialogModule} from "@angular/material/dialog";
-import {RestrictedDialog} from "./page/start-test/restrictred-dialog/restricted.dialog";
+import {UserService} from "./service/user.service";
+import {CompleteAuthComponent} from "./page/complete-auth/complete-auth.component";
+import {DialogComponent} from "./component/dialog/dialog.component";
 
 @NgModule({
     declarations: [
@@ -48,12 +48,12 @@ import {RestrictedDialog} from "./page/start-test/restrictred-dialog/restricted.
         EditTestComponent,
         MenuComponent,
         EditQuestionComponent,
-        ViewResultsComponent,
         PaginatorComponent,
         StartComponent,
         QuestionViewerComponent,
         TestSessionComponent,
-        RestrictedDialog
+        DialogComponent,
+        CompleteAuthComponent
     ],
     imports: [
         StoreModule.forRoot({
@@ -93,7 +93,7 @@ import {RestrictedDialog} from "./page/start-test/restrictred-dialog/restricted.
     ],
     providers: [
         DataService,
-        AuthServiceFactory,
+        UserService,
         {provide: HTTP_INTERCEPTORS, useClass: AnimationService, multi: true}
     ],
     bootstrap: [AppComponent]

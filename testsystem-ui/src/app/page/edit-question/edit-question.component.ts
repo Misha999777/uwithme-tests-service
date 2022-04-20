@@ -3,7 +3,7 @@ import {Store} from "@ngrx/store"
 import {Question} from "../../model/Question";
 import {Answer} from "../../model/Answer";
 import {DataService} from "../../service/data.service";
-import {mergeMap, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AngularEditorConfig} from "@kolkov/angular-editor/lib/config";
 import {reloadTests} from "../../store/admin/admin.actions";
@@ -35,9 +35,8 @@ export class EditQuestionComponent {
     processState(state: State) {
         this.selectedTestId = state.selectedTest.id;
         this.selectedQuestion = state.selectedQuestion ?? new Question();
-        if (this.selectedTestId) {
-            this.router.navigate(["test"])
-                .then(() => "Navigated user");
+        if (!this.selectedTestId) {
+            this.openTests();
         }
     }
 
@@ -50,8 +49,10 @@ export class EditQuestionComponent {
             observable = this.dataService.createQuestion(this.selectedTestId, this.selectedQuestion);
         }
 
-        observable.pipe(mergeMap(() => this.router.navigate(["test"])))
-                  .subscribe(() => this.store.dispatch(reloadTests()));
+        observable.subscribe(() => {
+            this.store.dispatch(reloadTests());
+            this.openTests();
+        })
     }
 
     answerChanged(newValue: string, correct: boolean, i: number) {
@@ -66,5 +67,10 @@ export class EditQuestionComponent {
             this.selectedQuestion.answers =
                     this.selectedQuestion.answers.filter((value, index) => index != i);
         }
+    }
+
+    private openTests() {
+        this.router.navigate(["test"])
+            .then(() => console.log("Navigated user"));
     }
 }

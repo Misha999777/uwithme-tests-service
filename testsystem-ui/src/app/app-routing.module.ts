@@ -2,10 +2,10 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {EditTestComponent} from "./page/edit-test/edit-test.component";
 import {EditQuestionComponent} from "./page/edit-question/edit-question.component";
-import {ViewResultsComponent} from "./page/view-results/view-results.component";
 import {StartComponent} from "./page/start-test/start.component";
 import {TestSessionComponent} from "./page/test-session/test-session.component";
-import {RedirectGuardService} from "./service/guard.service";
+import {GuardService} from "./service/guard.service";
+import {CompleteAuthComponent} from "./page/complete-auth/complete-auth.component";
 
 const routes: Routes = [
   {
@@ -16,27 +16,26 @@ const routes: Routes = [
   {
     path: 'test',
     component: EditTestComponent,
-    canActivate: [RedirectGuardService]
+    canActivate: [GuardService]
   },
   {
     path: 'question',
     component: EditQuestionComponent,
-    canActivate: [RedirectGuardService]
-  },
-  {
-    path: 'result',
-    component: ViewResultsComponent,
-    canActivate: [RedirectGuardService]
+    canActivate: [GuardService]
   },
   {
     path: 'start',
     component: StartComponent,
-    canActivate: [RedirectGuardService]
+    canActivate: [GuardService]
   },
   {
     path: 'session',
     component: TestSessionComponent,
-    canActivate: [RedirectGuardService]
+    canActivate: [GuardService]
+  },
+  {
+    path: 'auth',
+    component: CompleteAuthComponent
   }
 ];
 

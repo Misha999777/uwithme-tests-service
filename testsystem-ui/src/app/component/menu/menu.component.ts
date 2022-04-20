@@ -1,12 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {Test} from "../../model/Test";
 import {State} from "../../store/admin/admin.reducer";
-import {reloadTests, setTest} from "../../store/admin/admin.actions";
-import {AuthServiceFactory} from "../../service/auth.service.factory";
-import {UserUtility} from "../../utility/user.utility";
+import {setTest, setTests} from "../../store/admin/admin.actions";
+import {DataService} from "../../service/data.service";
 
 @Component({
     selector: 'testsystem-menu',
@@ -15,32 +14,33 @@ import {UserUtility} from "../../utility/user.utility";
 })
 export class MenuComponent implements OnInit {
 
-    showMenu: boolean;
-
-    tests: Observable<State> = this.store.select("admin");
     mobile: boolean = false;
+    tests: Observable<State> = this.store.select("admin");
 
     constructor(private router: Router,
-                private store: Store<{admin: State}>,
-                private userUtility: UserUtility) {
-        this.showMenu = userUtility.isAdmin();
+                private store: Store<{ admin: State }>,
+                private dataService: DataService) {
         this.calculateMobile();
     }
 
     ngOnInit() {
-        if (this.showMenu) {
-            this.store.dispatch(reloadTests());
-        }
+        this.dataService.getTests()
+            .subscribe(tests => this.store.dispatch(setTests({tests: tests})));
     }
 
     setTest(test: Test) {
-        this.router.navigate(["test"])
-            .then(() => this.store.dispatch(setTest({test: test})));
+        this.store.dispatch(setTest({test: test}));
+        this.openTests();
     }
 
     createTest() {
+        this.store.dispatch(setTest({test: null}));
+        this.openTests();
+    }
+
+    private openTests() {
         this.router.navigate(["test"])
-            .then(() => this.store.dispatch(setTest({test: null})));
+            .then(() => console.log("Navigated user"));
     }
 
     private calculateMobile() {
