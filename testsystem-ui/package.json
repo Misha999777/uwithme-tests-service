@@ -2,11 +2,10 @@
   "name": "testsystem",
   "version": "0.0.1",
   "scripts": {
+    "preinstall": "npm install @angular/cli",
     "ng": "ng",
     "start": "ng serve",
-    "start:prod": "ng serve --prod",
-    "build": "ng build",
-    "preinstall": "npm install @angular/cli"
+    "build": "ng build"
   },
   "private": true,
   "dependencies": {
@@ -24,11 +23,10 @@
     "@ngrx/effects": "^13.1.0",
     "@ngrx/store": "^13.1.0",
     "angular-cd-timer": "^1.3.0",
-    "angular-paginator": "^8.0.0",
     "ngrx-store-localstorage": "^13.0.1",
     "ngx-spinner": "^13.1.1",
     "rxjs": "~7.5.0",
-    "tcomad-oidc": "^1.0.35",
+    "tcomad-oidc": "^2.0.4",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
