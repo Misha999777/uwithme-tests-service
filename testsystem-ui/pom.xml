@@ -38,10 +38,9 @@
                         <id>build js</id>
                         <configuration>
                             <workingDirectory>./</workingDirectory>
-                            <executable>npm</executable>
+                            <executable>ng</executable>
                             <arguments>
-                                <argument>run</argument>
-                                <argument>${exec-maven-plugin.argument}</argument>
+                                <argument>build</argument>
                             </arguments>
                         </configuration>
                         <phase>generate-resources</phase>
@@ -53,6 +52,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>

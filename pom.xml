@@ -38,28 +38,4 @@
         <spring-security-oauth2-client.version>5.5.2</spring-security-oauth2-client.version>
         <spring-cloud-starter-openfeign.version>3.0.3</spring-cloud-starter-openfeign.version>
     </properties>
-
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                    <exec-maven-plugin.argument>build</exec-maven-plugin.argument>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <activation>
-                <property>
-                    <name>prod</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <properties>
-                <exec-maven-plugin.argument>build</exec-maven-plugin.argument>
-            </properties>
-        </profile>
-    </profiles>
 </project>

@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  home: "http://localhost:4200",
+  backend: "http://localhost:8080",
+  keycloak: "https://accounts.u-with-me.education/auth/realms/test"
 };
 
 /*

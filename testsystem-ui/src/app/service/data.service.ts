@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Constants} from "../../constants/constants";
 import {Test} from "../model/Test";
 import {mergeMap, Observable} from "rxjs";
 import {Question} from "../model/Question";
 import {TestSession} from "../model/TestSession";
 import {UserService} from "./user.service";
+import {environment} from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -30,7 +30,7 @@ export class DataService {
     createTest(test: Test): Observable<Test> {
         return this.request<Test>({
             method: 'POST',
-            url: Constants.backend + '/tests',
+            url: environment.backend + '/tests',
             body: test
         })
     }
@@ -38,7 +38,7 @@ export class DataService {
     updateTest(test: Test): Observable<Test> {
         return this.request<Test>({
             method: 'PUT',
-            url: Constants.backend + '/tests/' + test.id,
+            url: environment.backend + '/tests/' + test.id,
             body: test
         })
     }
@@ -46,21 +46,21 @@ export class DataService {
     deleteTest(testId: string): Observable<void> {
         return this.request<void>({
             method: 'DELETE',
-            url: Constants.backend + '/tests/' + testId
+            url: environment.backend + '/tests/' + testId
         })
     }
 
     getTests(): Observable<Test[]> {
         return this.request<Test[]>({
             method: 'GET',
-            url: Constants.backend + '/tests'
+            url: environment.backend + '/tests'
         })
     }
 
     createQuestion(testId: string, question: Question): Observable<Question> {
         return this.request<Question>({
             method: 'POST',
-            url: Constants.backend + '/tests/' + testId + '/questions',
+            url: environment.backend + '/tests/' + testId + '/questions',
             body: question
         })
     }
@@ -68,7 +68,7 @@ export class DataService {
     updateQuestion(testId: string, question: Question): Observable<Question> {
         return this.request<Question>({
             method: 'POST',
-            url: Constants.backend + '/tests/' + testId + '/questions',
+            url: environment.backend + '/tests/' + testId + '/questions',
             body: question
         })
     }
@@ -76,21 +76,21 @@ export class DataService {
     deleteQuestion(testId: string, questionId: number): Observable<Question> {
         return this.request<Question>({
             method: 'DELETE',
-            url: Constants.backend + '/tests/' + testId + '/questions/' + questionId
+            url: environment.backend + '/tests/' + testId + '/questions/' + questionId
         })
     }
 
     deleteResult(testId: string, sessionId: number): Observable<TestSession> {
         return this.request<TestSession>({
             method: 'DELETE',
-            url: Constants.backend + '/test/' + testId + '/session/' + sessionId
+            url: environment.backend + '/test/' + testId + '/session/' + sessionId
         })
     }
 
     beginTest(testId: string): Observable<TestSession> {
         return this.request<TestSession>({
             method: 'POST',
-            url: Constants.backend + '/test/' + testId + '/session'
+            url: environment.backend + '/test/' + testId + '/session'
         })
     }
 }

@@ -1,6 +1,4 @@
-import {AngularEditorConfig} from "@kolkov/angular-editor";
-
-export const Constants = {
-  home: "http://localhost:4200",
-  backend: "http://localhost:8081"
+export const constants = {
+  client: "TestSystem-UI",
+  adminRoles: ["ROLE_ADMIN", "ROLE_TEACHER"]
 }

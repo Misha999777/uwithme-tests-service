@@ -6,10 +6,10 @@ import {Store} from "@ngrx/store";
 import {State} from "../../store/admin/admin.reducer";
 import {Question} from "../../model/Question";
 import {Router} from "@angular/router";
-import {Constants} from "../../../constants/constants";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Observable} from "rxjs";
 import {reloadTests, setQuestion} from "../../store/admin/admin.actions";
+import {environment} from "../../../environments/environment";
 
 @Component({
     selector: 'testsystem-tests',
@@ -40,7 +40,7 @@ export class EditTestComponent {
     }
 
     generateLink() {
-        let url = Constants.home + "/start?testId=" + this.selectedTest.id;
+        let url = environment.home + "/start?testId=" + this.selectedTest.id;
         this.clipboard.copy(url);
         this.snackBar.open("Ссылка скопирована", null,{duration: 5000});
     }
