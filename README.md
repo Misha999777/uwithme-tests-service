@@ -11,10 +11,6 @@
 
 System for testing students. Uses [Spring Boot](http://projects.spring.io/spring-boot/) and [Angular](https://angular.io).
 
-## Usage
-
-You are welcome to clone, fork, modify, use, and redistribute this repository mentioning this repository.
-
 ## Requirements
 
 For building the application you will need:
