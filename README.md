@@ -19,12 +19,14 @@ For building the application you will need:
 - [Maven](https://maven.apache.org/)
 - [Node.js](https://nodejs.org/)
 - [NPM](https://www.npmjs.com/)
+- [Docker](https://www.docker.com/)
 
 ## Running the application locally
 
 You can run this application by
 
-- Starting required containers with
+- Downloading [Docker files](https://github.com/HappyMary16/uwithme-docker-files)
+- Starting them with
 ```shell
 docker-compose up
 ```
@@ -32,9 +34,9 @@ docker-compose up
 ```shell
 mvn install
 ```
-- Then you can start it as a Spring Boot application
+- Starting the project as a Spring Boot application
 
 ## Copyright
 
-Released under the Apache License 2.0. See the [LICENSE](https://github.com/Misha999777/TestSystem/blob/master/LICENSE)
+Released under the Apache License 2.0. See the [LICENSE](https://github.com/Misha999777/U-With-Me-Tests/blob/angular/LICENSE)
 file.
