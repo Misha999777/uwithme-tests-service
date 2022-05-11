@@ -23,16 +23,16 @@ For building the application you will need:
 
 You can run this application by
 
-- Downloading [Docker files](https://github.com/HappyMary16/uwithme-docker-files)
-- Starting them with
+1. Downloading [Docker files](https://github.com/HappyMary16/uwithme-docker-files)
+2. Starting them with
 ```shell
 docker-compose up
 ```
-- Building project with
+3. Building project with
 ```shell
 mvn install
 ```
-- Starting the project as a Spring Boot application
+4. Starting the project as a Spring Boot application
 
 ## Copyright
 
