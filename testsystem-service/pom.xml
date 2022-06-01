@@ -14,7 +14,7 @@
     <name>Test System Service</name>
 
     <properties>
-        <frontend-bundle-dir>${project.parent.basedir}/testsystem-ui/build</frontend-bundle-dir>
+        <frontend-bundle-dir>${project.parent.basedir}/testsystem-ui/dist/ang-tes</frontend-bundle-dir>
     </properties>
 
     <dependencies>

@@ -41,6 +41,8 @@
                             <executable>ng</executable>
                             <arguments>
                                 <argument>build</argument>
+                                <argument>--configuration</argument>
+                                <argument>${ui.build.command}</argument>
                             </arguments>
                         </configuration>
                         <phase>generate-resources</phase>

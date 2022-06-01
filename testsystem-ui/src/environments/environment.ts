@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  home: "http://localhost:4200",
-  backend: "http://localhost:8080",
-  keycloak: "https://accounts.u-with-me.education/auth/realms/test"
+  home: "http://localhost:8081",
+  backend: "http://localhost:8081",
+  keycloak: "http://localhost:8080/auth/realms/test"
 };
 
 /*

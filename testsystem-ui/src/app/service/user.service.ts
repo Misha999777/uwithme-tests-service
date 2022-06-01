@@ -9,7 +9,7 @@ import {environment} from "../../environments/environment";
 })
 export class UserService {
 
-    private authService = new AuthService(environment.keycloak, constants.client);
+    private authService = new AuthService(environment.keycloak, constants.client, true);
 
     public isLoggedIn(): boolean {
         return this.authService.isLoggedIn();
