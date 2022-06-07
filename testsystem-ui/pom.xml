@@ -38,8 +38,9 @@
                         <id>build js</id>
                         <configuration>
                             <workingDirectory>./</workingDirectory>
-                            <executable>ng</executable>
+                            <executable>npx</executable>
                             <arguments>
+                                <argument>ng</argument>
                                 <argument>build</argument>
                                 <argument>--configuration</argument>
                                 <argument>${ui.build.command}</argument>

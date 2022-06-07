@@ -2,8 +2,7 @@
   "name": "testsystem",
   "version": "0.0.1",
   "scripts": {
-    "preinstall": "npm install @angular/cli",
-    "ng": "ng",
+    "ng": "npx ng",
     "start": "ng serve",
     "build": "ng build"
   },

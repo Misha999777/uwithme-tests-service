@@ -1,4 +1,4 @@
 export const constants = {
-  client: "TestSystem-UI",
+  client: "uwm-testsystem-ui",
   adminRoles: ["ROLE_ADMIN", "ROLE_TEACHER"]
 }
