@@ -3,7 +3,7 @@
         <br>
         <cd-timer class="timer" format="ms" [countdown]="true" [startTime]="300"></cd-timer>
         <br>
-        <button mat-raised-button>Закончить тест</button>
+        <button mat-raised-button (click)="endTest()">Закончить тест</button>
     </div>
     <testsystem-question-viewer style="font-size: 1.5rem"></testsystem-question-viewer>
     <br>

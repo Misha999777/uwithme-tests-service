@@ -40,7 +40,7 @@ export class EditTestComponent {
     }
 
     generateLink() {
-        let url = environment.home + "/start?testId=" + this.selectedTest.id;
+        let url = window.location.host + "/start?testId=" + this.selectedTest.id;
         this.clipboard.copy(url);
         this.snackBar.open("Ссылка скопирована", null,{duration: 5000});
     }

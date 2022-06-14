@@ -30,9 +30,9 @@ export class QuestionViewerComponent {
 
     private processState(state: StudentState) {
         let selectedQuestion = state.selectedQuestion;
-        let userAnswersByQuestionId = state.testSession.userAnswersByQuestionId;
+        let userAnswersByQuestionId = state.testSession.userAnswersByQuestionId ?? new Map<number, number[]>();
 
-        this.userAnswers = Object.getOwnPropertyDescriptor(userAnswersByQuestionId, selectedQuestion.id).value;
+        this.userAnswers = Object.getOwnPropertyDescriptor(userAnswersByQuestionId, selectedQuestion.id)?.value ?? [];
         this.selectedQuestion = selectedQuestion;
     }
 

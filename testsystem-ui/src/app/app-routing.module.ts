@@ -29,6 +29,11 @@ const routes: Routes = [
     canActivate: [GuardService]
   },
   {
+    path: 'start/finished',
+    component: StartComponent,
+    canActivate: [GuardService]
+  },
+  {
     path: 'session',
     component: TestSessionComponent,
     canActivate: [GuardService]

@@ -20,6 +20,6 @@ export const studentReducer = createReducer(
         let testSession = {...state.testSession, userAnswersByQuestionId: userAnswers};
         return ({...state, testSession: testSession});
     }),
-    on(setSession, (state, {session}) => ({...state, testSession: session, selectedQuestion: session.questions[0]})),
+    on(setSession, (state, {session}) => ({...state, testSession: session, selectedQuestion: session?.questions[0]})),
     on(selectQuestion, (state, {index}) => ({...state, selectedQuestion: state.testSession.questions[index]}))
 );

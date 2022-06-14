@@ -93,4 +93,12 @@ export class DataService {
             url: environment.backend + '/test/' + testId + '/session'
         })
     }
+
+    endTest(testId: string, testSession: TestSession): Observable<TestSession> {
+        return this.request<TestSession>({
+            method: 'PUT',
+            url: environment.backend + '/test/' + testId + '/session',
+            body: testSession
+        })
+    }
 }

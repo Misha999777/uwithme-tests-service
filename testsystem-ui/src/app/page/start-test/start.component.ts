@@ -17,8 +17,9 @@ import {DialogComponent} from "../../component/dialog/dialog.component";
 export class StartComponent implements OnInit {
 
     private noTestIdMessage = "Если вы хотите пройти тест, попросите у преподавателя ссылку на него.\n" +
-        "Вы не можете создать тест, так как не являетесь администратором"
-    private alreadyWrittenMessage = "Вы уже писали этот тест"
+        "Вы не можете создать тест, так как не являетесь администратором";
+    private alreadyWrittenMessage = "Вы уже писали этот тест";
+    private testCompleted = "Результат теста сохранен";
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -27,8 +28,13 @@ export class StartComponent implements OnInit {
                 private store: Store<{student: StudentState}>) {}
 
     ngOnInit(): void {
-        let testId = this.route.snapshot.queryParamMap.get('testId');
+        let path = this.route.snapshot.url[1];
+        if (path?.toString() === "finished") {
+            this.openDialog(this.testCompleted);
+            return;
+        }
 
+        let testId = this.route.snapshot.queryParamMap.get('testId');
         if (testId) {
             this.beginTest(testId);
         } else {
