@@ -6,6 +6,7 @@ export class TestSession {
     userId: string;
     userName: string;
     startTime: Date;
+    durationMinutes: number;
     elapsedTime: number;
     score: number;
     questions: Question[];

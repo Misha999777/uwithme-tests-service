@@ -14,12 +14,21 @@ import {setSession} from "../../store/student/student.actions";
 export class TestSessionComponent {
 
     testSession: TestSession;
+    leftTime: number;
 
     constructor(private store: Store<{ student: StudentState }>,
                 private dataService: DataService,
                 private router: Router) {
         this.store.select("student")
-            .subscribe(state => this.testSession = state.testSession);
+            .subscribe(state => this.processState(state.testSession));
+    }
+
+    processState(testSession: TestSession) {
+        this.testSession = testSession;
+        if (testSession) {
+            let elapsedTime = (Date.now() - new Date(testSession.startTime).valueOf()) / 1000;
+            this.leftTime = testSession.durationMinutes * 60 - elapsedTime;
+        }
     }
 
     endTest() {

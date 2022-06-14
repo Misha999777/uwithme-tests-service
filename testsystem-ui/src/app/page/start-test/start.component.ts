@@ -11,8 +11,7 @@ import {DialogComponent} from "../../component/dialog/dialog.component";
 
 @Component({
     selector: 'testsystem-start',
-    templateUrl: './start.component.html',
-    styleUrls: ['./start.component.css']
+    template: ''
 })
 export class StartComponent implements OnInit {
 

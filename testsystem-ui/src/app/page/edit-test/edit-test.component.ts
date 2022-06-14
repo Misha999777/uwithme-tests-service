@@ -26,7 +26,7 @@ export class EditTestComponent {
                 private clipboard: Clipboard,
                 private snackBar: MatSnackBar) {
         this.store.select("admin")
-            .subscribe(state => this.selectedTest = state.selectedTest ?? new Test());
+            .subscribe(state => this.selectedTest = {...state.selectedTest ?? new Test()});
     }
 
     createTest() {

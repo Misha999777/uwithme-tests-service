@@ -1,7 +1,11 @@
 <div style="font-size: 1.3rem">
     <div class="control">
         <br>
-        <cd-timer class="timer" format="ms" [countdown]="true" [startTime]="300"></cd-timer>
+        <cd-timer class="timer" format="ms"
+                  [countdown]="true"
+                  [startTime]="leftTime"
+                  (onComplete)="endTest()">
+        </cd-timer>
         <br>
         <button mat-raised-button (click)="endTest()">Закончить тест</button>
     </div>

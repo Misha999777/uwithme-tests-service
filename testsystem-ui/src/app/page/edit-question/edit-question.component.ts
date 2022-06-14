@@ -34,7 +34,7 @@ export class EditQuestionComponent {
 
     processState(state: State) {
         this.selectedTestId = state.selectedTest.id;
-        this.selectedQuestion = state.selectedQuestion ?? new Question();
+        this.selectedQuestion = {...state.selectedQuestion ?? new Question()};
         if (!this.selectedTestId) {
             this.openTests();
         }
