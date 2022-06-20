@@ -7,22 +7,22 @@ import java.util.Set;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import tk.tcomad.testsystem.client.KeycloakClient;
-import tk.tcomad.testsystem.dto.KeycloakUserApi;
+import org.keycloak.admin.client.resource.UsersResource;
+import org.keycloak.representations.idm.UserRepresentation;
+import org.springframework.stereotype.Component;
 import tk.tcomad.testsystem.model.persistence.Question;
 import tk.tcomad.testsystem.model.persistence.TestSession;
 import tk.tcomad.testsystem.provider.QuestionProvider;
 import tk.tcomad.testsystem.security.UserContextHolder;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class TestSessionBuilder {
 
     @NonNull
     private final QuestionProvider questionProvider;
     @NonNull
-    private final KeycloakClient keycloakClient;
+    private final UsersResource usersResource;
 
     private String testId;
 
@@ -33,7 +33,7 @@ public class TestSessionBuilder {
 
     public TestSession build() {
         Set<Question> questions = questionProvider.getQuestionsByTestId(testId);
-        KeycloakUserApi keycloakUser = keycloakClient.getUser(UserContextHolder.getUserId());
+        UserRepresentation keycloakUser = usersResource.get(UserContextHolder.getUserId()).toRepresentation();
         String userName = keycloakUser.getLastName() + SPACE + keycloakUser.getFirstName();
 
         return TestSession.builder()

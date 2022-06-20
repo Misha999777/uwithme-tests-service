@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import tk.tcomad.testsystem.builder.TestSessionBuilder;
 import tk.tcomad.testsystem.exception.BadRequestException;
+import tk.tcomad.testsystem.exception.NotFoundException;
 import tk.tcomad.testsystem.model.api.TestSessionApi;
 import tk.tcomad.testsystem.model.mapper.TestSessionMapper;
 import tk.tcomad.testsystem.model.persistence.TestSession;
@@ -40,8 +41,9 @@ public class TestSessionEndpoint {
 
     @Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
     @GetMapping("/{sessionId}")
-    public TestSessionApi getSession(@PathVariable Long sessionId) {
-        TestSession testSession = testSessionRepository.findById(sessionId).orElseThrow();
+    public TestSessionApi getSession(@PathVariable String testId, @PathVariable Long sessionId) {
+        TestSession testSession = testSessionRepository.findByTestIdAndId(testId, sessionId)
+                                                       .orElseThrow(() -> new NotFoundException("Not found"));
 
         return testSessionMapper.toTestSessionApi(testSession);
     }
@@ -49,8 +51,8 @@ public class TestSessionEndpoint {
     @Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
     @DeleteMapping("/{sessionId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteSession(@PathVariable Long sessionId) {
-        testSessionRepository.deleteById(sessionId);
+    public void deleteSession(@PathVariable String testId, @PathVariable Long sessionId) {
+        testSessionRepository.deleteByTestIdAndId(testId, sessionId);
     }
 
     @PostMapping
@@ -68,9 +70,9 @@ public class TestSessionEndpoint {
     }
 
     @PutMapping
-    public TestSessionApi endTest(@RequestBody @NonNull TestSessionApi testSessionApi) {
-        TestSession testSession = testSessionRepository.findById(testSessionApi.getId())
-                                                       .orElseThrow(() -> new BadRequestException(""));
+    public TestSessionApi endTest(@PathVariable String testId, @RequestBody TestSessionApi testSessionApi) {
+        TestSession testSession = testSessionRepository.findByTestIdAndId(testId, testSessionApi.getId())
+                                                       .orElseThrow(() -> new NotFoundException("Not found"));
 
         if (!Objects.equals(testSession.getUserId(), UserContextHolder.getUserId())) {
             throw new BadRequestException("");

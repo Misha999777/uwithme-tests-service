@@ -37,15 +37,15 @@ public class QuestionEndpoint {
     private final QuestionMapper questionMapper;
 
     @GetMapping
-    public List<QuestionApi> getTestQuestions(@RequestParam String testId) {
+    public List<QuestionApi> getTestQuestions(@PathVariable String testId) {
         return questionRepository.findAllByTestId(testId).stream()
                                  .map(questionMapper::toQuestionApi)
                                  .collect(Collectors.toList());
     }
 
     @GetMapping("/{questionId}")
-    public QuestionApi getQuestion(@PathVariable Long questionId) {
-        return questionRepository.findById(questionId)
+    public QuestionApi getQuestion(@PathVariable String testId, @PathVariable Long questionId) {
+        return questionRepository.findByTestIdAndId(testId, questionId)
                                  .map(questionMapper::toQuestionApi)
                                  .orElseThrow(() -> new NotFoundException("Question not found"));
     }
@@ -66,7 +66,7 @@ public class QuestionEndpoint {
 
     @DeleteMapping("/{questionId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteQuestion(@PathVariable Long questionId) {
-        questionRepository.deleteById(questionId);
+    public void deleteQuestion(@PathVariable String testId, @PathVariable Long questionId) {
+        questionRepository.deleteByTestIdAndId(testId, questionId);
     }
 }

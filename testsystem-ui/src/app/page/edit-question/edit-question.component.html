@@ -11,7 +11,7 @@
                         {{selectedQuestion.answers[i] == null ? 'Добавьте вариант ответа' : selectedQuestion.answers[i].text}}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-form-field class="example-full-width">
+                <mat-form-field class="full-width">
                     <mat-label>Select variants (separate by comma)</mat-label>
                     <input matInput
                            value="{{selectedQuestion.answers[i]?.text}}"

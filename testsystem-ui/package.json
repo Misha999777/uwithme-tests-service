@@ -2,7 +2,7 @@
   "name": "testsystem",
   "version": "0.0.1",
   "scripts": {
-    "ng": "npx ng",
+    "ng": "ng",
     "start": "ng serve",
     "build": "ng build"
   },

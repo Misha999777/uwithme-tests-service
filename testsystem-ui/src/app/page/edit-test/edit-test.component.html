@@ -1,17 +1,17 @@
 <testsystem-menu>
     <h1>Настройки теста</h1>
     <form #form="ngForm" (ngSubmit)="form.valid && createTest()">
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="fill">
             <mat-label>Название теста</mat-label>
             <input matInput placeholder="Математика" name="name" required
                    [(ngModel)]="selectedTest.name">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="fill">
             <mat-label>Количество вопросов</mat-label>
             <input matInput type="number" placeholder="0" name="questions" required min="1"
                    [(ngModel)]="selectedTest.questionsNumber">
         </mat-form-field>
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="fill">
             <mat-label>Продолжительность теста</mat-label>
             <input matInput type="number" placeholder="0" name="duration" required min="1"
                    [(ngModel)]="selectedTest.durationMinutes">
