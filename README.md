@@ -1,7 +1,5 @@
 # TestSystem
 
-![](https://img.shields.io/static/v1?label=&message=This%20is%20a%20WIP%20Angular%20version%20of%20the%20TestSystem%20Project&color=red)
-
 [![Build Status](https://github.com/Misha999777/U-With-Me-Tests/workflows/Main/badge.svg)](https://github.com/Misha999777/U-With-Me-Tests/actions?query=workflow%3A%22Main%22)
 [![License](http://img.shields.io/:license-apache-blue.svg)](https://github.com/Misha999777/U-With-Me-Tests/blob/angular/LICENSE)
 
