@@ -1,5 +1,5 @@
 <div class="pagination">
-    <div *ngFor="let _ of [].constructor(pages); let page = index"
+    <div *for="pages; let page = index"
          [ngClass]="{active:currentPage === page}"
          (click)="setPage(page)"
          class="page-item">

@@ -44,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>com.vladmihalcea</groupId>
-            <artifactId>hibernate-types-60</artifactId>
+            <artifactId>hibernate-types-55</artifactId>
             <version>${hibernate-types.version}</version>
         </dependency>
         <dependency>

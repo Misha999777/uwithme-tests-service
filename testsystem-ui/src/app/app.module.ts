@@ -41,9 +41,11 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {UserService} from "./service/user.service";
 import {CompleteAuthComponent} from "./page/complete-auth/complete-auth.component";
 import {DialogComponent} from "./component/dialog/dialog.component";
+import {ForDirective} from "./directive/for.directive";
 
 @NgModule({
     declarations: [
+        ForDirective,
         AppComponent,
         EditTestComponent,
         MenuComponent,
