@@ -43,7 +43,7 @@
                                 <argument>ng</argument>
                                 <argument>build</argument>
                                 <argument>--configuration</argument>
-                                <argument>${ui.build.command}</argument>
+                                <argument>${ui.build.configuration}</argument>
                             </arguments>
                         </configuration>
                         <phase>generate-resources</phase>

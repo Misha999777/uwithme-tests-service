@@ -80,7 +80,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory >
+                            <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${frontend-bundle-dir}</directory>
