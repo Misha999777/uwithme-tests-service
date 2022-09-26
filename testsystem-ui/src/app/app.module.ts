@@ -104,7 +104,4 @@ import {PlainPipe} from "./pipe/plain.pipe";
     ],
     bootstrap: [AppComponent]
 })
-
-export class AppModule {
-
-}
+export class AppModule { }
