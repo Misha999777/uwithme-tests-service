@@ -22,7 +22,13 @@ export class EditQuestionComponent {
     config: AngularEditorConfig = {
         editable: true,
         minHeight: '20rem',
-        maxHeight: '20rem'
+        maxHeight: '20rem',
+        toolbarHiddenButtons: [[
+            'backgroundColor',
+            'insertImage',
+            'insertVideo',
+            'toggleEditorMode'
+        ]]
     };
 
     constructor(private store: Store<{admin: State}>,

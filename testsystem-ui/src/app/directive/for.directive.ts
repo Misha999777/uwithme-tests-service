@@ -5,8 +5,8 @@ export class ForDirective {
 
   count: number;
 
-  constructor( private templateRef: TemplateRef<any>,
-               private viewContainer: ViewContainerRef) { }
+  constructor(private templateRef: TemplateRef<any>,
+              private viewContainer: ViewContainerRef) { }
 
   @Input('for')
   set setCount(count: number) {
@@ -15,10 +15,25 @@ export class ForDirective {
   }
 
   private draw(): void {
-    this.viewContainer.clear();
+    if (this.viewContainer.length == this.count) {
+      return;
+    }
 
-    for(let i = 0; i < this.count; i++) {
-      this.viewContainer.createEmbeddedView(this.templateRef, new Context(i));
+    if (this.count == 0) {
+      this.viewContainer.clear();
+      return;
+    }
+
+    if (this.viewContainer.length < this.count) {
+      for(let i = this.viewContainer.length; i < this.count; i++) {
+        this.viewContainer.createEmbeddedView(this.templateRef, new Context(i), i);
+      }
+    }
+
+    if (this.viewContainer.length > this.count) {
+      for (let i = this.count - 1; i < this.viewContainer.length; i++) {
+        this.viewContainer.remove(i);
+      }
     }
   }
 }
