@@ -3,7 +3,7 @@ import {Store} from "@ngrx/store"
 import {Question} from "../../model/Question";
 import {Answer} from "../../model/Answer";
 import {DataService} from "../../service/data.service";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {AngularEditorConfig} from "@kolkov/angular-editor/lib/config";
 import {reloadTests} from "../../store/admin/admin.actions";
@@ -35,12 +35,14 @@ export class EditQuestionComponent {
                 private dataService: DataService,
                 private router: Router) {
         this.store.select('admin')
+            .pipe(map(state => structuredClone(state)))
             .subscribe(state => this.processState(state));
     }
 
     processState(state: State) {
-        this.selectedTestId = state.selectedTest.id;
-        this.selectedQuestion = {...state.selectedQuestion ?? new Question()};
+        this.selectedTestId = state.selectedTest?.id;
+        this.selectedQuestion = state.selectedQuestion ?? this.selectedQuestion;
+
         if (!this.selectedTestId) {
             this.openTests();
         }
@@ -69,10 +71,7 @@ export class EditQuestionComponent {
             this.selectedQuestion.answers[i].correct = correct;
         }
 
-        if (newValue.length == 0) {
-            this.selectedQuestion.answers =
-                    this.selectedQuestion.answers.filter((value, index) => index != i);
-        }
+        this.selectedQuestion.answers = this.selectedQuestion.answers.filter(value => value.text);
     }
 
     private openTests() {

@@ -42,10 +42,12 @@ import {UserService} from "./service/user.service";
 import {CompleteAuthComponent} from "./page/complete-auth/complete-auth.component";
 import {DialogComponent} from "./component/dialog/dialog.component";
 import {ForDirective} from "./directive/for.directive";
+import {PlainPipe} from "./pipe/plain.pipe";
 
 @NgModule({
     declarations: [
         ForDirective,
+        PlainPipe,
         AppComponent,
         EditTestComponent,
         MenuComponent,
@@ -65,11 +67,13 @@ import {ForDirective} from "./directive/for.directive";
             metaReducers: [
                 localStorageSync({
                     keys: ['student'],
-                    rehydrate: true,
+                    rehydrate: true
                 })
             ],
         }),
-        EffectsModule.forRoot([AdminEffects]),
+        EffectsModule.forRoot([
+            AdminEffects
+        ]),
         BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
@@ -94,9 +98,9 @@ import {ForDirective} from "./directive/for.directive";
         MatDialogModule
     ],
     providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: AnimationService, multi: true},
         DataService,
-        UserService,
-        {provide: HTTP_INTERCEPTORS, useClass: AnimationService, multi: true}
+        UserService
     ],
     bootstrap: [AppComponent]
 })

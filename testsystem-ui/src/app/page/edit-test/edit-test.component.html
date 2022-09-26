@@ -28,7 +28,7 @@
         <table mat-table [dataSource]="selectedTest.questions" class="mat-elevation-z8">
             <ng-container matColumnDef="text">
                 <th mat-header-cell *matHeaderCellDef>Вопрос</th>
-                <td mat-cell class="question" *matCellDef="let element"> {{convertToPlain(element.text)}} </td>
+                <td mat-cell class="question" *matCellDef="let element">{{element.text | plain}}</td>
             </ng-container>
             <ng-container matColumnDef="buttons">
                 <th mat-header-cell *matHeaderCellDef>Действия</th>

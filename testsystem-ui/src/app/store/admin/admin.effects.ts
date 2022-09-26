@@ -9,13 +9,15 @@ export class AdminEffects {
 
     constructor(private actions: Actions, private dataService: DataService) {}
 
-    loadTests = createEffect(() => this.actions.pipe(
+    loadTests = createEffect(() =>
+        this.actions.pipe(
             ofType(reloadTests),
-            mergeMap(() => this.dataService.getTests()
-                .pipe(
+            mergeMap(() =>
+                this.dataService.getTests().pipe(
                     map(tests => (setTests({tests: tests}))),
                     catchError(() => EMPTY)
-                ))
+                )
+            )
         )
     );
 }

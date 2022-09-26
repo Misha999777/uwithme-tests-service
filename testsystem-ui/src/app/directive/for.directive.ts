@@ -15,15 +15,6 @@ export class ForDirective {
   }
 
   private draw(): void {
-    if (this.viewContainer.length == this.count) {
-      return;
-    }
-
-    if (this.count == 0) {
-      this.viewContainer.clear();
-      return;
-    }
-
     if (this.viewContainer.length < this.count) {
       for(let i = this.viewContainer.length; i < this.count; i++) {
         this.viewContainer.createEmbeddedView(this.templateRef, new Context(i), i);
@@ -31,8 +22,9 @@ export class ForDirective {
     }
 
     if (this.viewContainer.length > this.count) {
-      for (let i = this.count - 1; i < this.viewContainer.length; i++) {
-        this.viewContainer.remove(i);
+      this.viewContainer.clear();
+      for(let i = 0; i < this.count; i++) {
+        this.viewContainer.createEmbeddedView(this.templateRef, new Context(i), i);
       }
     }
   }

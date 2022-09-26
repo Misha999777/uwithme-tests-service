@@ -64,10 +64,4 @@ export class EditTestComponent {
         this.dataService.deleteResult(this.selectedTest.id, resultId)
             .subscribe(() => this.store.dispatch(reloadTests()));
     }
-
-    convertToPlain(html: string): string {
-        let div = document.createElement("div");
-        div.innerHTML = html;
-        return div.innerText;
-    }
 }
