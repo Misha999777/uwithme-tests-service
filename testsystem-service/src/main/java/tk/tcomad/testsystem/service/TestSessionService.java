@@ -2,6 +2,7 @@ package tk.tcomad.testsystem.service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -34,6 +35,14 @@ public class TestSessionService {
     private final TestRepository testRepository;
     @NonNull
     private final TestMapper testMapper;
+
+    public void removeCorrectAnswers(TestSession testSession) {
+        testSession.getQuestions()
+                   .stream()
+                   .map(Question::getAnswers)
+                   .flatMap(Collection::stream)
+                   .forEach(answer -> answer.setCorrect(false));
+    }
 
     public void saveTestSession(TestSession testSession, TestSession userSession) {
         Test test = testRepository.findById(testSession.getTestId())

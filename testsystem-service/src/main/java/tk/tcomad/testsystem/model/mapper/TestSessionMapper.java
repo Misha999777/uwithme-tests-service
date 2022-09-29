@@ -2,11 +2,6 @@ package tk.tcomad.testsystem.model.mapper;
 
 import static org.apache.logging.log4j.util.Chars.SPACE;
 
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.mapstruct.AfterMapping;
@@ -16,9 +11,7 @@ import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.tcomad.testsystem.config.MapperConfiguration;
 import tk.tcomad.testsystem.exception.NotFoundException;
-import tk.tcomad.testsystem.model.domain.Question;
 import tk.tcomad.testsystem.model.domain.TestSession;
-import tk.tcomad.testsystem.model.persistence.QuestionDb;
 import tk.tcomad.testsystem.model.persistence.TestSessionDb;
 import tk.tcomad.testsystem.repository.TestRepository;
 import tk.tcomad.testsystem.security.UserContextHolder;
@@ -48,22 +41,5 @@ public abstract class TestSessionMapper {
 
         target.durationMinutes(durationMinutes);
         target.userName(userName);
-    }
-
-    @AfterMapping
-    protected void map(@MappingTarget TestSessionDb target, TestSession domain) {
-        final Map<Long, QuestionDb> testQuestions =
-                testRepository.findById(domain.getTestId())
-                              .orElseThrow(() -> new NotFoundException("Test not found"))
-                              .getQuestions()
-                              .stream()
-                              .collect(Collectors.toMap(QuestionDb::getId, Function.identity()));
-
-        final List<QuestionDb> sessionQuestions = domain.getQuestions()
-                                                        .stream()
-                                                        .map(Question::getId)
-                                                        .map(testQuestions::get)
-                                                        .collect(Collectors.toList());
-        target.setQuestions(sessionQuestions);
     }
 }

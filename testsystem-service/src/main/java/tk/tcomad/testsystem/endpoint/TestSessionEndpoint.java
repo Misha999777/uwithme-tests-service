@@ -62,16 +62,16 @@ public class TestSessionEndpoint {
     public TestSession beginTest(@PathVariable String testId) {
         testSessionRepository.findByUserIdAndTestId(UserContextHolder.getUserId(), testId)
                              .ifPresent((ts) -> {
-                                 throw new RuntimeException();
+                                 throw new BadRequestException("Already done");
                              });
 
-        TestSession testSession = testSessionBuilder.withTestId(testId)
-                                                    .build();
-        TestSessionDb saved = testSessionRepository.save(testSessionMapper.toDb(testSession));
+        TestSessionDb toSave = testSessionMapper.toDb(testSessionBuilder.withTestId(testId)
+                                                                        .build());
+        TestSession saved = testSessionMapper.toDomain(testSessionRepository.save(toSave));
 
-        return testSession.toBuilder()
-                          .id(saved.getId())
-                          .build();
+        testSessionService.removeCorrectAnswers(saved);
+
+        return saved;
     }
 
     @PutMapping

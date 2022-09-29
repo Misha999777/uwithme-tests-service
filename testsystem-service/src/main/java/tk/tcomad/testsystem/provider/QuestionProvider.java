@@ -33,12 +33,6 @@ public class QuestionProvider {
 
         return questions.stream()
                         .limit(test.getQuestionsNumber())
-                        .peek(this::removeCorrectAnswers)
                         .collect(Collectors.toList());
-    }
-
-    private void removeCorrectAnswers(Question question) {
-        question.getAnswers()
-                .forEach(answer -> answer.setCorrect(false));
     }
 }
