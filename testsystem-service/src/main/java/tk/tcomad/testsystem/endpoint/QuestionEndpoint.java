@@ -3,6 +3,8 @@ package tk.tcomad.testsystem.endpoint;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -65,6 +67,7 @@ public class QuestionEndpoint {
 
     @DeleteMapping("/{questionId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Transactional
     public void deleteQuestion(@PathVariable String testId, @PathVariable Long questionId) {
         questionRepository.deleteByTestIdAndId(testId, questionId);
     }
