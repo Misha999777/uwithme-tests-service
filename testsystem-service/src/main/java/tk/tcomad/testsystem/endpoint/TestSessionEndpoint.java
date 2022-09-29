@@ -45,7 +45,7 @@ public class TestSessionEndpoint {
     @GetMapping("/{sessionId}")
     public TestSession getSession(@PathVariable String testId, @PathVariable Long sessionId) {
         TestSessionDb testSession = testSessionRepository.findByTestIdAndId(testId, sessionId)
-                                                         .orElseThrow(() -> new NotFoundException("Not found"));
+                                                         .orElseThrow(() -> new NotFoundException("Session not found"));
 
         return testSessionMapper.toDomain(testSession);
     }
@@ -78,10 +78,10 @@ public class TestSessionEndpoint {
     public TestSession endTest(@PathVariable String testId, @RequestBody TestSession testSessionApi) {
         TestSession testSession = testSessionRepository.findByTestIdAndId(testId, testSessionApi.getId())
                                                        .map(testSessionMapper::toDomain)
-                                                       .orElseThrow(() -> new NotFoundException("Not found"));
+                                                       .orElseThrow(() -> new NotFoundException("Session not found"));
 
         if (!Objects.equals(testSession.getUserId(), UserContextHolder.getUserId())) {
-            throw new BadRequestException("");
+            throw new BadRequestException("Not an author");
         }
 
         testSessionService.saveTestSession(testSession, testSessionApi);

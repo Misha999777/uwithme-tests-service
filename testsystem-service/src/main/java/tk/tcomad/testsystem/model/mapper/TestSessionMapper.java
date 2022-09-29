@@ -40,7 +40,7 @@ public abstract class TestSessionMapper {
     @AfterMapping
     protected void map(@MappingTarget TestSession.TestSessionBuilder target, TestSessionDb db) {
         final int durationMinutes = testRepository.findById(db.getTestId())
-                                                  .orElseThrow(() -> new NotFoundException("Not found"))
+                                                  .orElseThrow(() -> new NotFoundException("Test not found"))
                                                   .getDurationMinutes();
 
         UserRepresentation keycloakUser = usersResource.get(UserContextHolder.getUserId()).toRepresentation();
@@ -52,12 +52,12 @@ public abstract class TestSessionMapper {
 
     @AfterMapping
     protected void map(@MappingTarget TestSessionDb target, TestSession domain) {
-        final Map<Long, QuestionDb> testQuestions = testRepository.findById(domain.getTestId())
-                                                                  .orElseThrow(() -> new NotFoundException("Not found"))
-                                                                  .getQuestions()
-                                                                  .stream()
-                                                                  .collect(Collectors.toMap(QuestionDb::getId,
-                                                                                            Function.identity()));
+        final Map<Long, QuestionDb> testQuestions =
+                testRepository.findById(domain.getTestId())
+                              .orElseThrow(() -> new NotFoundException("Test not found"))
+                              .getQuestions()
+                              .stream()
+                              .collect(Collectors.toMap(QuestionDb::getId, Function.identity()));
 
         final List<QuestionDb> sessionQuestions = domain.getQuestions()
                                                         .stream()

@@ -64,7 +64,7 @@ public class TestSessionService {
 
         Instant allowedTime = startedTime.plus(duration, ChronoUnit.MINUTES);
         if (allowedTime.isBefore(now)) {
-            throw new BadRequestException("");
+            throw new BadRequestException("Time exceeded");
         }
         return (int) difference.getEpochSecond() / 60;
     }
