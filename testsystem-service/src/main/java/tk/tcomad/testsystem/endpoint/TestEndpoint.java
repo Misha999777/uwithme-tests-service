@@ -5,7 +5,7 @@ import static tk.tcomad.testsystem.security.UserContextHolder.getUserId;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -40,14 +40,16 @@ public class TestEndpoint {
     private final TestMapper testMapper;
 
     @GetMapping
-    public List<TestDb> getTests() {
-        return testRepository.findAllByAuthorId(getUserId());
+    public List<Test> getTests() {
+        return testRepository.findAllByAuthorId(getUserId())
+                             .stream().map(testMapper::toDomain)
+                             .collect(Collectors.toList());
     }
 
     @GetMapping("/{testId}")
     public Test getTest(@PathVariable String testId) {
         return testRepository.findByAuthorIdAndId(getUserId(), testId)
-                             .map(testMapper::toTestApi)
+                             .map(testMapper::toDomain)
                              .orElseThrow(() -> new NotFoundException("Test not found"));
     }
 
@@ -57,33 +59,34 @@ public class TestEndpoint {
             throw new BadRequestException("Use PUT for update");
         }
 
-        TestDb testToSave = testMapper.toTestDb(testApi).toBuilder()
-                                      .authorId(getUserId())
-                                      .questions(List.of())
-                                      .testSessions(List.of())
-                                      .build();
+        Test testToSave = testApi.toBuilder()
+                                 .authorId(getUserId())
+                                 .questions(List.of())
+                                 .testSessions(List.of())
+                                 .build();
 
-        TestDb savedTest = testRepository.save(testToSave);
+        TestDb savedTest = testRepository.save(testMapper.toDb(testToSave));
 
-        return testMapper.toTestApi(savedTest);
+        return testMapper.toDomain(savedTest);
     }
 
     @PutMapping("/{testId}")
     public Test updateTest(@PathVariable String testId, @RequestBody @NonNull Test testApi) {
-        TestDb savedTestDb = Optional.ofNullable(testId)
-                                     .map(testRepository::findById)
-                                     .orElseThrow(() -> new BadRequestException("Use POST for save"))
-                                     .orElseThrow(() -> new NotFoundException("Test not found"));
+        Test existing = Optional.ofNullable(testId)
+                                .map(testRepository::findById)
+                                .orElseThrow(() -> new BadRequestException("Use POST for save"))
+                                .map(testMapper::toDomain)
+                                .orElseThrow(() -> new NotFoundException("Test not found"));
 
-        TestDb testToSave = savedTestDb.toBuilder()
-                                       .name(testApi.getName())
-                                       .durationMinutes(testApi.getDurationMinutes())
-                                       .questionsNumber(testApi.getQuestionsNumber())
-                                       .build();
+        Test testToSave = existing.toBuilder()
+                                  .name(testApi.getName())
+                                  .durationMinutes(testApi.getDurationMinutes())
+                                  .questionsNumber(testApi.getQuestionsNumber())
+                                  .build();
 
-        TestDb savedTest = testRepository.save(testToSave);
+        TestDb savedTest = testRepository.save(testMapper.toDb(testToSave));
 
-        return testMapper.toTestApi(savedTest);
+        return testMapper.toDomain(savedTest);
     }
 
     @DeleteMapping("/{testId}")

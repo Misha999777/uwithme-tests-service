@@ -8,7 +8,7 @@ import tk.tcomad.testsystem.model.persistence.QuestionDb;
 @Mapper(config = MapperConfiguration.class)
 public interface QuestionMapper {
 
-    Question toQuestionApi(QuestionDb question);
+    Question toDomain(QuestionDb question);
 
-    QuestionDb toQuestionDb(Question questionApi);
+    QuestionDb toDb(Question questionApi);
 }

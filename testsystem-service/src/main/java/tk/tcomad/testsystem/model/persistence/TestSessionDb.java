@@ -14,10 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
@@ -27,9 +24,6 @@ import org.hibernate.annotations.TypeDefs;
         @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 })
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder(toBuilder = true)
 public class TestSessionDb implements Serializable {
 
     private final static long serialVersionUID = 13254083253534L;
@@ -37,14 +31,20 @@ public class TestSessionDb implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String testId;
+
     private String userId;
-    private String userName;
+
     private Instant startTime;
+
     private Integer elapsedTime;
+
     private Float score;
+
     @ManyToMany
     private List<QuestionDb> questions;
+
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     private Map<Long, Set<String>> userAnswersByQuestionId;

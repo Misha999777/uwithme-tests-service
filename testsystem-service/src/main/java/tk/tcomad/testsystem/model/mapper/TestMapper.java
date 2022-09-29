@@ -6,10 +6,10 @@ import tk.tcomad.testsystem.model.domain.Test;
 import tk.tcomad.testsystem.model.persistence.TestDb;
 
 @Mapper(config = MapperConfiguration.class,
-        uses = {TestSessionMapper.class})
+        uses = {QuestionMapper.class, TestSessionMapper.class})
 public interface TestMapper {
 
-    Test toTestApi(TestDb test);
+    Test toDomain(TestDb test);
 
-    TestDb toTestDb(Test testApi);
+    TestDb toDb(Test testApi);
 }

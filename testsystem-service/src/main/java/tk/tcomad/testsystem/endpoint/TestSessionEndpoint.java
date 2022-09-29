@@ -47,7 +47,7 @@ public class TestSessionEndpoint {
         TestSessionDb testSession = testSessionRepository.findByTestIdAndId(testId, sessionId)
                                                          .orElseThrow(() -> new NotFoundException("Not found"));
 
-        return testSessionMapper.toTestSessionApi(testSession);
+        return testSessionMapper.toDomain(testSession);
     }
 
     @Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
@@ -67,7 +67,7 @@ public class TestSessionEndpoint {
 
         TestSession testSession = testSessionBuilder.withTestId(testId)
                                                     .build();
-        TestSessionDb saved = testSessionRepository.save(testSessionMapper.toTestSession(testSession));
+        TestSessionDb saved = testSessionRepository.save(testSessionMapper.toDb(testSession));
 
         return testSession.toBuilder()
                           .id(saved.getId())
@@ -76,8 +76,9 @@ public class TestSessionEndpoint {
 
     @PutMapping
     public TestSession endTest(@PathVariable String testId, @RequestBody TestSession testSessionApi) {
-        TestSessionDb testSession = testSessionRepository.findByTestIdAndId(testId, testSessionApi.getId())
-                                                         .orElseThrow(() -> new NotFoundException("Not found"));
+        TestSession testSession = testSessionRepository.findByTestIdAndId(testId, testSessionApi.getId())
+                                                       .map(testSessionMapper::toDomain)
+                                                       .orElseThrow(() -> new NotFoundException("Not found"));
 
         if (!Objects.equals(testSession.getUserId(), UserContextHolder.getUserId())) {
             throw new BadRequestException("");

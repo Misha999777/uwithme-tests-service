@@ -24,9 +24,6 @@ import tk.tcomad.testsystem.model.domain.Answer;
         @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 })
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder(toBuilder = true)
 public class QuestionDb implements Serializable {
 
     private final static long serialVersionUID = 73251433534L;
@@ -34,9 +31,12 @@ public class QuestionDb implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String text;
+
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
     private List<Answer> answers;
+
     private String testId;
 }

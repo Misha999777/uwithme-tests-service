@@ -25,7 +25,7 @@ public class QuestionProvider {
 
     public List<Question> getQuestionsByTestId(String testId) {
         Test test = testRepository.findById(testId)
-                                  .map(testMapper::toTestApi)
+                                  .map(testMapper::toDomain)
                                   .orElseThrow(() -> new NotFoundException("Test not found"));
 
         List<Question> questions = new ArrayList<>(test.getQuestions());

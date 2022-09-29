@@ -18,9 +18,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder(toBuilder = true)
 public class TestDb implements Serializable {
 
     private final static long serialVersionUID = 73091263434L;
@@ -29,13 +26,19 @@ public class TestDb implements Serializable {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private String id;
+
     private String name;
+
     private String authorId;
+
     private Integer durationMinutes;
+
     private Integer questionsNumber;
+
     @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "testId")
     private List<QuestionDb> questions;
+
     @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "testId")
     private List<TestSessionDb> testSessions;

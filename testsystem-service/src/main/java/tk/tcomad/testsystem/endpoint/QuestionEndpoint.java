@@ -40,14 +40,14 @@ public class QuestionEndpoint {
     @GetMapping
     public List<Question> getTestQuestions(@PathVariable String testId) {
         return questionRepository.findAllByTestId(testId).stream()
-                                 .map(questionMapper::toQuestionApi)
+                                 .map(questionMapper::toDomain)
                                  .collect(Collectors.toList());
     }
 
     @GetMapping("/{questionId}")
     public Question getQuestion(@PathVariable String testId, @PathVariable Long questionId) {
         return questionRepository.findByTestIdAndId(testId, questionId)
-                                 .map(questionMapper::toQuestionApi)
+                                 .map(questionMapper::toDomain)
                                  .orElseThrow(() -> new NotFoundException("Question not found"));
     }
 
@@ -59,10 +59,10 @@ public class QuestionEndpoint {
 
         question.setTestId(testId);
 
-        QuestionDb toSave = questionMapper.toQuestionDb(question);
+        QuestionDb toSave = questionMapper.toDb(question);
         QuestionDb saved = questionRepository.save(toSave);
 
-        return questionMapper.toQuestionApi(saved);
+        return questionMapper.toDomain(saved);
     }
 
     @DeleteMapping("/{questionId}")
