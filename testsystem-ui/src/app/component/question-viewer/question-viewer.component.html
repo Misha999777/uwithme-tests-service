@@ -3,11 +3,11 @@
     <br/>
     <div class="left">
         <mat-radio-group *ngIf="!selectedQuestion.isMultipleChoice">
-            <div *ngFor="let answer of selectedQuestion.answers; let i = index">
+            <div *ngFor="let answer of selectedQuestion.answers">
                 <div style="display: flex;">
                     <mat-radio-button class="item" value="{{answer.text}}"
-                                      (click)="selectAnswer(i)"
-                                      [checked]="userAnswers.includes(i)">
+                                      (click)="selectAnswer(answer.text)"
+                                      [checked]="userAnswers.includes(answer.text)">
                     </mat-radio-button>
                     <span style="padding-top: 12px">{{answer.text}}</span>
                 </div>
@@ -15,9 +15,9 @@
         </mat-radio-group>
         <section *ngIf="selectedQuestion.isMultipleChoice">
             <mat-checkbox class="item"
-                          *ngFor="let answer of selectedQuestion.answers; let i = index"
-                          (click)="selectAnswer(i)"
-                          [checked]="userAnswers.includes(i)">
+                          *ngFor="let answer of selectedQuestion.answers"
+                          (click)="selectAnswer(answer.text)"
+                          [checked]="userAnswers.includes(answer.text)">
                 {{answer.text}}
             </mat-checkbox>
         </section>

@@ -3,11 +3,11 @@ package tk.tcomad.testsystem.repository;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
-import tk.tcomad.testsystem.model.persistence.TestSession;
+import tk.tcomad.testsystem.model.persistence.TestSessionDb;
 
-public interface TestSessionRepository extends CrudRepository<TestSession, Long> {
+public interface TestSessionRepository extends CrudRepository<TestSessionDb, Long> {
 
-    Optional<TestSession> findByUserIdAndTestId(String userId, String testId);
-    Optional<TestSession> findByTestIdAndId(String testId, Long testSessionId);
-    void  deleteByTestIdAndId(String testId, Long testSessionId);
+    Optional<TestSessionDb> findByUserIdAndTestId(String userId, String testId);
+    Optional<TestSessionDb> findByTestIdAndId(String testId, Long testSessionId);
+    void deleteByTestIdAndId(String testId, Long testSessionId);
 }

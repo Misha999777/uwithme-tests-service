@@ -12,14 +12,14 @@ import {answerQuestion} from "../../store/student/student.actions";
 export class QuestionViewerComponent {
 
     selectedQuestion: Question;
-    userAnswers: number[];
+    userAnswers: string[];
 
     constructor(private store: Store<{ student: StudentState }>) {
         this.store.select("student")
             .subscribe(state => this.processState(state))
     }
 
-    selectAnswer(index: number) {
+    selectAnswer(index: string) {
         this.saveAnswer(index);
 
         this.store.dispatch(answerQuestion({
@@ -36,7 +36,7 @@ export class QuestionViewerComponent {
         this.selectedQuestion = selectedQuestion;
     }
 
-    private saveAnswer(index: number) {
+    private saveAnswer(index: string) {
         if (this.selectedQuestion.isMultipleChoice) {
             if (this.userAnswers.includes(index)) {
                 this.userAnswers = this.userAnswers.filter(value => value != index);

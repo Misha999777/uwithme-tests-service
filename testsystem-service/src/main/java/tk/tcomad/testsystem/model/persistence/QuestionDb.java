@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
+import tk.tcomad.testsystem.model.domain.Answer;
 
 @Entity
 @TypeDefs({
@@ -26,7 +27,7 @@ import org.hibernate.annotations.TypeDefs;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class Question implements Serializable {
+public class QuestionDb implements Serializable {
 
     private final static long serialVersionUID = 73251433534L;
 

@@ -1,4 +1,4 @@
-package tk.tcomad.testsystem.model.api;
+package tk.tcomad.testsystem.model.domain;
 
 import java.util.List;
 
@@ -11,11 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class QuestionApi {
+public class Question {
 
     private Long id;
     private String text;
-    private List<AnswerApi> answers;
+    private List<Answer> answers;
     private String testId;
-    private Boolean isMultipleChoice;
 }

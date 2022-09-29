@@ -1,6 +1,7 @@
-package tk.tcomad.testsystem.model.api;
+package tk.tcomad.testsystem.model.domain;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,15 +14,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class TestSessionApi {
+public class TestSession {
 
     private Long id;
+    private String testId;
     private Integer durationMinutes;
     private String userId;
     private String userName;
     private Instant startTime;
     private Integer elapsedTime;
     private Float score;
-    private Set<QuestionApi> questions;
+    private List<Question> questions;
     private Map<Long, Set<String>> userAnswersByQuestionId;
 }

@@ -1,29 +1,57 @@
 package tk.tcomad.testsystem.model.mapper;
 
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import org.mapstruct.MappingTarget;
+import org.springframework.beans.factory.annotation.Autowired;
 import tk.tcomad.testsystem.config.MapperConfiguration;
-import tk.tcomad.testsystem.model.api.TestSessionApi;
-import tk.tcomad.testsystem.model.persistence.TestSession;
-import tk.tcomad.testsystem.service.TestService;
-import tk.tcomad.testsystem.service.TestSessionService;
+import tk.tcomad.testsystem.exception.NotFoundException;
+import tk.tcomad.testsystem.model.domain.Question;
+import tk.tcomad.testsystem.model.domain.TestSession;
+import tk.tcomad.testsystem.model.persistence.QuestionDb;
+import tk.tcomad.testsystem.model.persistence.TestSessionDb;
+import tk.tcomad.testsystem.repository.TestRepository;
 
-@Mapper(config = MapperConfiguration.class,
-        uses = {UserAnswerMapper.class,
-                QuestionMapper.class,
-                TestService.class,
-                TestSessionService.class})
-public interface TestSessionMapper {
+@Mapper(config = MapperConfiguration.class)
+public abstract class TestSessionMapper {
 
-    @Mapping(source = "questions", target = "questions", qualifiedByName = "toStudentQuestionApi")
-    @Mapping(source = "testId", target = "durationMinutes", qualifiedByName = "getTestDuration")
-    TestSessionApi toStudentTestSessionApi(TestSession testSession);
+    @Autowired
+    private TestRepository testRepository;
 
-    @Named("toTestSessionApi")
-    @Mapping(source = "testId", target = "durationMinutes", qualifiedByName = "getTestDuration")
-    TestSessionApi toTestSessionApi(TestSession testSession);
+    @Mapping(target = "durationMinutes", ignore = true)
+    public abstract TestSession toTestSessionApi(TestSessionDb testSession);
 
-    @Mapping(source = "id", target = "testId", qualifiedByName = "getTestId")
-    TestSession toTestSession(TestSessionApi testSessionApi);
+    public abstract TestSessionDb toTestSession(TestSession testSessionApi);
+
+    @AfterMapping
+    protected void map(@MappingTarget TestSession target, TestSessionDb domain) {
+        final int durationMinutes = testRepository.findById(domain.getTestId())
+                                                  .orElseThrow(() -> new NotFoundException("Not found"))
+                                                  .getDurationMinutes();
+
+        target.setDurationMinutes(durationMinutes);
+    }
+
+    @AfterMapping
+    protected void map(@MappingTarget TestSessionDb target, TestSession domain) {
+        final Map<Long, QuestionDb> testQuestions = testRepository.findById(domain.getTestId())
+                                                                  .orElseThrow(() -> new NotFoundException("Not found"))
+                                                                  .getQuestions()
+                                                                  .stream()
+                                                                  .collect(Collectors.toMap(QuestionDb::getId,
+                                                                                            Function.identity()));
+
+        final List<QuestionDb> sessionQuestions = domain.getQuestions()
+                                                        .stream()
+                                                        .map(Question::getId)
+                                                        .map(testQuestions::get)
+                                                        .collect(Collectors.toList());
+        target.setQuestions(sessionQuestions);
+    }
 }

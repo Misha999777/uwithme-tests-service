@@ -1,6 +1,7 @@
 package tk.tcomad.testsystem.model.persistence;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class Test implements Serializable {
+public class TestDb implements Serializable {
 
     private final static long serialVersionUID = 73091263434L;
 
@@ -34,8 +35,8 @@ public class Test implements Serializable {
     private Integer questionsNumber;
     @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "testId")
-    private Set<Question> questions;
+    private List<QuestionDb> questions;
     @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "testId")
-    private Set<TestSession> testSessions;
+    private List<TestSessionDb> testSessions;
 }
