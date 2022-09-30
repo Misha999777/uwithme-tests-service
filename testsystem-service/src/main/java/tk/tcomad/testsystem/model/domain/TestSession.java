@@ -1,7 +1,6 @@
 package tk.tcomad.testsystem.model.domain;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,6 +23,6 @@ public class TestSession {
     private Instant startTime;
     private Integer elapsedTime;
     private Float score;
-    private List<Question> questions;
+    private Set<Question> questionSnapshots;
     private Map<Long, Set<String>> userAnswersByQuestionId;
 }

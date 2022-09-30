@@ -15,7 +15,7 @@ export class PaginatorComponent {
 
     constructor(private store: Store<{student: StudentState}>) {
         store.select("student")
-            .subscribe(state => this.pages = state.testSession.questions.length)
+            .subscribe(state => this.pages = state.testSession.questionSnapshots.length)
     }
 
     setPage(page: number) {

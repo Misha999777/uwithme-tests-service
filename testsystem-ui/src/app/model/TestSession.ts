@@ -9,6 +9,6 @@ export class TestSession {
     durationMinutes: number;
     elapsedTime: number;
     score: number;
-    questions: Question[];
+    questionSnapshots: Question[];
     userAnswersByQuestionId: Map<number, string[]>
 }

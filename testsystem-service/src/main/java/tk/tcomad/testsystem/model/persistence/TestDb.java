@@ -2,7 +2,6 @@ package tk.tcomad.testsystem.model.persistence;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,17 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Data
 public class TestDb implements Serializable {
-
-    private final static long serialVersionUID = 73091263434L;
 
     @Id
     @GeneratedValue(generator = "uuid2")

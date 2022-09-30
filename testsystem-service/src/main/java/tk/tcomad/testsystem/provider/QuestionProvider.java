@@ -3,6 +3,7 @@ package tk.tcomad.testsystem.provider;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import lombok.NonNull;
@@ -23,7 +24,7 @@ public class QuestionProvider {
     @NonNull
     private final TestMapper testMapper;
 
-    public List<Question> getQuestionsByTestId(String testId) {
+    public Set<Question> getQuestionsByTestId(String testId) {
         Test test = testRepository.findById(testId)
                                   .map(testMapper::toDomain)
                                   .orElseThrow(() -> new NotFoundException("Test not found"));
@@ -33,6 +34,6 @@ public class QuestionProvider {
 
         return questions.stream()
                         .limit(test.getQuestionsNumber())
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toSet());
     }
 }

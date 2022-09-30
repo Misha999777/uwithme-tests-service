@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Question {
 
     private Long id;
+    private String testId;
     private String text;
     private List<Answer> answers;
-    private String testId;
 }

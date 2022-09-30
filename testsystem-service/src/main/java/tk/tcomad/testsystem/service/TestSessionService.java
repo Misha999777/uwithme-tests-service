@@ -16,11 +16,8 @@ import org.springframework.stereotype.Service;
 import tk.tcomad.testsystem.exception.BadRequestException;
 import tk.tcomad.testsystem.model.domain.Answer;
 import tk.tcomad.testsystem.model.domain.Question;
-import tk.tcomad.testsystem.model.domain.Test;
 import tk.tcomad.testsystem.model.domain.TestSession;
-import tk.tcomad.testsystem.model.mapper.TestMapper;
 import tk.tcomad.testsystem.model.mapper.TestSessionMapper;
-import tk.tcomad.testsystem.repository.TestRepository;
 import tk.tcomad.testsystem.repository.TestSessionRepository;
 
 @Service
@@ -31,34 +28,25 @@ public class TestSessionService {
     private final TestSessionRepository testSessionRepository;
     @NonNull
     private final TestSessionMapper testSessionMapper;
-    @NonNull
-    private final TestRepository testRepository;
-    @NonNull
-    private final TestMapper testMapper;
 
     public void removeCorrectAnswers(TestSession testSession) {
-        testSession.getQuestions()
+        testSession.getQuestionSnapshots()
                    .stream()
                    .map(Question::getAnswers)
                    .flatMap(Collection::stream)
-                   .forEach(answer -> answer.setCorrect(false));
+                   .forEach(answer -> answer.setCorrect(null));
     }
 
     public void saveTestSession(TestSession testSession, TestSession userSession) {
-        Test test = testRepository.findById(testSession.getTestId())
-                                  .map(testMapper::toDomain)
-                                  .orElseThrow();
-        Set<Question> questions = test.getQuestions().stream()
-                                      .filter(question -> testSession.getQuestions().contains(question))
-                                      .collect(Collectors.toSet());
+        Set<Question> questions = testSession.getQuestionSnapshots();
         Map<Long, Set<String>> userAnswers = userSession.getUserAnswersByQuestionId();
 
         long correctAnswers = countCorrectAnswers(questions, userAnswers);
-        Float score = (float) correctAnswers / test.getQuestionsNumber() * 100;
+        Float score = (float) correctAnswers / questions.size() * 100;
 
         TestSession testSessionToSave = testSession.toBuilder()
                                                    .elapsedTime(elapsedTime(userSession.getStartTime(),
-                                                                            test.getDurationMinutes()))
+                                                                            testSession.getDurationMinutes()))
                                                    .score(score)
                                                    .userAnswersByQuestionId(userAnswers)
                                                    .build();
@@ -95,7 +83,7 @@ public class TestSessionService {
         Set<String> correctAnswers = Optional.ofNullable(questionAnswers)
                                              .orElse(List.of())
                                              .stream()
-                                             .filter(Answer::isCorrect)
+                                             .filter(Answer::getCorrect)
                                              .map(Answer::getText)
                                              .collect(Collectors.toSet());
 

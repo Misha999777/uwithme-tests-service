@@ -1,7 +1,7 @@
 package tk.tcomad.testsystem.builder;
 
 import java.time.Instant;
-import java.util.List;
+import java.util.Set;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -37,13 +37,13 @@ public class TestSessionBuilder {
         Test test = testRepository.findById(testId)
                                   .map(testMapper::toDomain)
                                   .orElseThrow(() -> new NotFoundException("Test not found"));
-        List<Question> questions = questionProvider.getQuestionsByTestId(testId);
+        Set<Question> questions = questionProvider.getQuestionsByTestId(testId);
 
         return TestSession.builder()
                           .testId(testId)
                           .userId(UserContextHolder.getUserId())
                           .startTime(Instant.now())
-                          .questions(questions)
+                          .questionSnapshots(questions)
                           .durationMinutes(test.getDurationMinutes())
                           .build();
     }
