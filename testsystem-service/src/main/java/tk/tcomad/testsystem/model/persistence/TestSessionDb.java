@@ -16,6 +16,7 @@ import lombok.Data;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
+import tk.tcomad.testsystem.model.domain.Question;
 
 @Entity
 @TypeDefs({
@@ -40,7 +41,7 @@ public class TestSessionDb implements Serializable {
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    private Set<QuestionDb> questionSnapshots;
+    private Set<Question> questionSnapshots;
 
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
