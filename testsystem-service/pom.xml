@@ -13,10 +13,6 @@
     <artifactId>testsystem-service</artifactId>
     <name>Test System Service</name>
 
-    <properties>
-        <frontend-bundle-dir>${project.parent.basedir}/testsystem-ui/dist/ang-tes</frontend-bundle-dir>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -76,26 +72,6 @@
                 <configuration>
                     <mainClass>tk.tcomad.testsystem.Main</mainClass>
                 </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${frontend-bundle-dir}</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
