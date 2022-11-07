@@ -9,7 +9,6 @@ import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Observable} from "rxjs";
 import {reloadTests, setQuestion} from "../../store/admin/admin.actions";
-import {environment} from "../../../environments/environment";
 
 @Component({
     selector: 'testsystem-tests',
