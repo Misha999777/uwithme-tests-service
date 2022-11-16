@@ -10,3 +10,7 @@ mat-panel-title {
     overflow: hidden;
     word-break: break-word;
 }
+
+button {
+    margin-bottom: 10px;
+}

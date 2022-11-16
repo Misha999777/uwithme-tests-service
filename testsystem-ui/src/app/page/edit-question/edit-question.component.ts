@@ -5,7 +5,6 @@ import {Answer} from "../../model/Answer";
 import {DataService} from "../../service/data.service";
 import {map, Observable} from "rxjs";
 import {Router} from "@angular/router";
-import {AngularEditorConfig} from "@kolkov/angular-editor/lib/config";
 import {reloadTests} from "../../store/admin/admin.actions";
 import {State} from "../../store/admin/admin.reducer";
 
@@ -18,18 +17,6 @@ export class EditQuestionComponent {
 
     selectedQuestion: Question = new Question();
     selectedTestId: string;
-
-    config: AngularEditorConfig = {
-        editable: true,
-        minHeight: '20rem',
-        maxHeight: '20rem',
-        toolbarHiddenButtons: [[
-            'backgroundColor',
-            'insertImage',
-            'insertVideo',
-            'toggleEditorMode'
-        ]]
-    };
 
     constructor(private store: Store<{admin: State}>,
                 private dataService: DataService,
