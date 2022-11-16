@@ -15,10 +15,10 @@ import {DialogComponent} from "../../component/dialog/dialog.component";
 })
 export class StartComponent implements OnInit {
 
-    private noTestIdMessage = "Если вы хотите пройти тест, попросите у преподавателя ссылку на него.\n" +
-        "Вы не можете создать тест, так как не являетесь администратором";
-    private alreadyWrittenMessage = "Вы уже писали этот тест";
-    private testCompleted = "Результат теста сохранен";
+    private noTestIdMessage = "Якщо ви хочете пройти тест - викладач пивинен надіслати вам посилання.\n" +
+        "Лише викладач або адміністратор можуть створити тест.";
+    private alreadyWrittenMessage = "Ви вже пройшли цей тест";
+    private testCompleted = "Результат теста збережено";
 
     constructor(private router: Router,
                 private route: ActivatedRoute,

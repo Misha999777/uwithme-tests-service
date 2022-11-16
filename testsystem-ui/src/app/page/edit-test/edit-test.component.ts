@@ -41,7 +41,7 @@ export class EditTestComponent {
     generateLink() {
         let url = window.location.host + "/start?testId=" + this.selectedTest.id;
         this.clipboard.copy(url);
-        this.snackBar.open("Ссылка скопирована", null,{duration: 5000});
+        this.snackBar.open("Посилання скопійовано", null,{duration: 5000});
     }
 
     deleteTest() {

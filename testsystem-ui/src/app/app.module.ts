@@ -98,7 +98,11 @@ import {PlainPipe} from "./pipe/plain.pipe";
         MatDialogModule
     ],
     providers: [
-        {provide: HTTP_INTERCEPTORS, useClass: AnimationService, multi: true},
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AnimationService,
+            multi: true
+        },
         DataService,
         UserService
     ],

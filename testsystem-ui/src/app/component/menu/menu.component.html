@@ -5,13 +5,13 @@
         </mat-chip>
     </mat-chip-list>
     <div class="sidenav" *ngIf="!mobile">
-        <h3>Ваши тесты:</h3>
+        <h3>Ваші тести:</h3>
         <mat-nav-list>
             <mat-list-item *ngFor="let test of (tests|async).tests">
                 <a (click)="setTest(test)">{{test.name}}</a>
             </mat-list-item>
             <br>
-            <button mat-raised-button (click)="createTest()">Создать тест</button>
+            <button mat-raised-button (click)="createTest()">Створити тест</button>
         </mat-nav-list>
     </div>
     <div class="main-content">
