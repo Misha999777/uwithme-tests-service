@@ -25,19 +25,15 @@ You can run this application by
 ```shell
 docker compose up -d
 ```
-3. Building testsystem-service with
-```shell
-mvn install
-```
-4. Starting testsystem-service with
+3. Starting testsystem-service with
 ```shell
 mvn spring-boot:run
 ```
-5. Installing dependencies of testsystem-ui with
+4. Installing dependencies of testsystem-ui with
 ```shell
 npm install
 ```
-6. Starting testsystem-ui with
+5. Starting testsystem-ui with
 ```shell
 npx ng serve
 ```

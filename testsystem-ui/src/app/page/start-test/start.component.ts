@@ -16,7 +16,7 @@ import {DialogComponent} from "../../component/dialog/dialog.component";
 export class StartComponent implements OnInit {
 
     private noTestIdMessage = "Якщо ви хочете пройти тест - викладач пивинен надіслати вам посилання.\n" +
-        "Лише викладач або адміністратор можуть створити тест.";
+        "Лише викладач може створити новий тест.";
     private alreadyWrittenMessage = "Ви вже пройшли цей тест";
     private testCompleted = "Результат теста збережено";
 
