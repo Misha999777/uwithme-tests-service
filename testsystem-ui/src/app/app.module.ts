@@ -14,7 +14,6 @@ import {MatListModule} from "@angular/material/list";
 import {MenuComponent} from "./component/menu/menu.component";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
-import {AngularEditorModule} from "@kolkov/angular-editor";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {EditQuestionComponent} from "./page/edit-question/edit-question.component";
 import {MatExpansionModule} from "@angular/material/expansion";
@@ -43,6 +42,7 @@ import {CompleteAuthComponent} from "./page/complete-auth/complete-auth.componen
 import {DialogComponent} from "./component/dialog/dialog.component";
 import {ForDirective} from "./directive/for.directive";
 import {PlainPipe} from "./pipe/plain.pipe";
+import {CKEditorModule} from "ckeditor4-angular";
 
 @NgModule({
     declarations: [
@@ -85,7 +85,6 @@ import {PlainPipe} from "./pipe/plain.pipe";
         MatListModule,
         MatInputModule,
         FormsModule,
-        AngularEditorModule,
         MatExpansionModule,
         MatSlideToggleModule,
         MatRadioModule,
@@ -95,10 +94,15 @@ import {PlainPipe} from "./pipe/plain.pipe";
         MatSnackBarModule,
         MatIconModule,
         CdTimerModule,
-        MatDialogModule
+        MatDialogModule,
+        CKEditorModule
     ],
     providers: [
-        {provide: HTTP_INTERCEPTORS, useClass: AnimationService, multi: true},
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AnimationService,
+            multi: true
+        },
         DataService,
         UserService
     ],

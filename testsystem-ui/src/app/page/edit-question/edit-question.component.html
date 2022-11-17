@@ -1,18 +1,18 @@
 <testsystem-menu>
-    <h1>Текст вопроса</h1>
-    <angular-editor [(ngModel)]="selectedQuestion.text" [config]="config"></angular-editor>
+    <h1>Текст питання</h1>
+    <ckeditor [(ngModel)]="selectedQuestion.text"></ckeditor>
     <br/>
-    <h1>Варианты ответов</h1>
+    <h1>Варіанти відповідей</h1>
     <mat-accordion>
         <div *for="selectedQuestion.answers.length + 1; let i = index">
             <mat-expansion-panel hideToggle>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        {{selectedQuestion.answers[i] == null ? 'Добавьте вариант' : selectedQuestion.answers[i].text}}
+                        {{selectedQuestion.answers[i] == null ? 'Додати варіант' : selectedQuestion.answers[i].text}}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-form-field class="full-width">
-                    <mat-label>Select variants (separate by comma)</mat-label>
+                    <mat-label>Текст відповіді</mat-label>
                     <input matInput
                            value="{{selectedQuestion.answers[i]?.text}}"
                            (input)="answerChanged(text.value, correct.checked, i)"
@@ -27,5 +27,5 @@
         </div>
     </mat-accordion>
     <br>
-    <button mat-raised-button (click)="save()">Сохранить</button>
+    <button mat-raised-button (click)="save()">Зберегти</button>
 </testsystem-menu>

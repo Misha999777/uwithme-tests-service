@@ -1,6 +1,5 @@
 # TestSystem
 
-[![Build Status](https://github.com/Misha999777/U-With-Me-Tests/workflows/Main/badge.svg)](https://github.com/Misha999777/U-With-Me-Tests/actions?query=workflow%3A%22Main%22)
 [![License](http://img.shields.io/:license-apache-blue.svg)](https://github.com/Misha999777/U-With-Me-Tests/blob/angular/LICENSE)
 
 ## Description
@@ -24,13 +23,20 @@ You can run this application by
 1. Downloading [Docker files](https://github.com/HappyMary16/uwithme-docker-files)
 2. Starting them with
 ```shell
-docker-compose up
+docker compose up -d
 ```
-3. Building project with
+3. Starting testsystem-service with
 ```shell
-mvn install
+mvn spring-boot:run
 ```
-4. Starting the project as a Spring Boot application
+4. Installing dependencies of testsystem-ui with
+```shell
+npm install
+```
+5. Starting testsystem-ui with
+```shell
+npx ng serve
+```
 
 ## Copyright
 
