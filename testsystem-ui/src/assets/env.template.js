@@ -1,4 +1,4 @@
 window["env"] = window["env"] || {};
 
-window["env"]["SERVER_URL"] = "${TESTSYSTEM_SERVER_URL}";
-window["env"]["KEYCLOAK_URL"] = "${TESTSYSTEM_KEYCLOAK_URL}";
+window["env"]["SERVER_URL"] = "https://${TESTSYSTEM_SERVER_HOST}";
+window["env"]["KEYCLOAK_URL"] = "https://${TESTSYSTEM_KEYCLOAK_HOST}/realms/${TESTSYSTEM_KEYCLOAK_REALM}";
