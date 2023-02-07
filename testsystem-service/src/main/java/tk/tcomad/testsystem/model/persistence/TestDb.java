@@ -1,16 +1,15 @@
 package tk.tcomad.testsystem.model.persistence;
 
-import java.io.Serializable;
-import java.util.List;
+import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-
-import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Data

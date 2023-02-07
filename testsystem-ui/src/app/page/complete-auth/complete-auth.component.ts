@@ -10,7 +10,8 @@ export class CompleteAuthComponent implements OnInit {
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
-                private userService: UserService) {}
+                private userService: UserService) {
+    }
 
     ngOnInit(): void {
         if (this.userService.isLoggedIn()) {
@@ -18,5 +19,4 @@ export class CompleteAuthComponent implements OnInit {
                 .then(() => console.log("Navigated user"))
         }
     }
-
 }

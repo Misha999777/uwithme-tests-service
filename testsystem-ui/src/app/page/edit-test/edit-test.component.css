@@ -1,18 +1,18 @@
 .full-width {
-  width: 100%;
+    width: 100%;
 }
 
 table {
-  width: 100%;
+    width: 100%;
 }
 
 .question {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
 }
 
 button {
-  margin: 16px 8px;
+    margin: 16px 8px;
 }

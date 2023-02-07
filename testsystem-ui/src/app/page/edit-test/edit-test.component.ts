@@ -19,7 +19,7 @@ export class EditTestComponent {
 
     selectedTest: Test = new Test();
 
-    constructor(private store: Store<{admin: State}>,
+    constructor(private store: Store<{ admin: State }>,
                 private dataService: DataService,
                 private router: Router,
                 private clipboard: Clipboard,
@@ -41,7 +41,7 @@ export class EditTestComponent {
     generateLink() {
         let url = window.location.host + "/start?testId=" + this.selectedTest.id;
         this.clipboard.copy(url);
-        this.snackBar.open("Посилання скопійовано", null,{duration: 5000});
+        this.snackBar.open("Посилання скопійовано", null, {duration: 5000});
     }
 
     deleteTest() {

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {Test} from "../../model/Test";
 import {State} from "../../store/admin/admin.reducer";
@@ -15,11 +14,13 @@ import {DataService} from "../../service/data.service";
 export class MenuComponent implements OnInit {
 
     mobile: boolean = false;
-    tests: Observable<State> = this.store.select("admin");
+    tests: Test[] = [];
 
     constructor(private router: Router,
-                private store: Store<{admin: State}>,
+                private store: Store<{ admin: State }>,
                 private dataService: DataService) {
+        this.store.select("admin")
+            .subscribe(state => this.tests = state.tests)
         this.calculateMobile();
     }
 

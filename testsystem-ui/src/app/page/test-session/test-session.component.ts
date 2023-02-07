@@ -31,9 +31,9 @@ export class TestSessionComponent {
         }
     }
 
-    endTest() {
+    end() {
         this.dataService.endTest(this.testSession.testId, this.testSession)
-            .subscribe(session => {
+            .subscribe(() => {
                 this.store.dispatch(setSession({session: null}));
                 this.router.navigate(["start", "finished"])
                     .then(() => console.log("Navigated user"));

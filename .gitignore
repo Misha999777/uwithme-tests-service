@@ -5,5 +5,4 @@
 /testsystem-ui/target/
 /testsystem-ui/dist/
 /testsystem-ui/node_modules/
-/testsystem-ui/package-lock.json
 /testsystem-ui/.angular/

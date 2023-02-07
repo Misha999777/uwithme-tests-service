@@ -15,7 +15,8 @@ export class UserService {
     }
 
     public isAdmin(): boolean {
-        return constants.adminRoles.some(role => this.authService.hasRole(role));
+        return this.authService.getRoles()
+            .some(role => constants.adminRoles.includes(role));
     }
 
     public getToken(): Observable<string> {

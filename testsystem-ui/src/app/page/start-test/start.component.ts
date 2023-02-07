@@ -15,8 +15,8 @@ import {DialogComponent} from "../../component/dialog/dialog.component";
 })
 export class StartComponent implements OnInit {
 
-    private noTestIdMessage = "Якщо ви хочете пройти тест - викладач пивинен надіслати вам посилання.\n" +
-        "Лише викладач може створити новий тест.";
+    private noTestIdMessage = "Якщо ви хочете пройти тест - викладач пивинен надіслати вам посилання.\n"
+        + "Лише викладач може створити новий тест.";
     private alreadyWrittenMessage = "Ви вже пройшли цей тест";
     private testCompleted = "Результат теста збережено";
 
@@ -24,7 +24,8 @@ export class StartComponent implements OnInit {
                 private route: ActivatedRoute,
                 private dialog: MatDialog,
                 private dataService: DataService,
-                private store: Store<{student: StudentState}>) {}
+                private store: Store<{ student: StudentState }>) {
+    }
 
     ngOnInit(): void {
         let path = this.route.snapshot.url[1];

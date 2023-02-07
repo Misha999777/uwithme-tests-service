@@ -12,19 +12,7 @@ import {constants} from "../../constants/constants";
 })
 export class DataService {
 
-    constructor(private httpClient: HttpClient, private userService: UserService) {}
-
-    private request<T>(request: { method: string, url: string, body?: object }): Observable<T> {
-        return this.userService.getToken().pipe(
-            mergeMap((token) => {
-                const headers = new HttpHeaders()
-                    .set('Authorization', "Bearer " + token)
-                    .set('Content-Type', "application/json");
-
-                let options = {headers: headers, body: JSON.stringify(request.body)};
-
-                return this.httpClient.request<T>(request.method, request.url, options)
-            }))
+    constructor(private httpClient: HttpClient, private userService: UserService) {
     }
 
     createTest(test: Test): Observable<Test> {
@@ -100,5 +88,18 @@ export class DataService {
             url: constants.serverUrl + '/test/' + testId + '/session',
             body: testSession
         })
+    }
+
+    private request<T>(request: { method: string, url: string, body?: object }): Observable<T> {
+        return this.userService.getToken().pipe(
+            mergeMap((token) => {
+                const headers = new HttpHeaders()
+                    .set('Authorization', "Bearer " + token)
+                    .set('Content-Type', "application/json");
+
+                let options = {headers: headers, body: JSON.stringify(request.body)};
+
+                return this.httpClient.request<T>(request.method, request.url, options)
+            }))
     }
 }

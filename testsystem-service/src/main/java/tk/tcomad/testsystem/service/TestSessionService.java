@@ -1,15 +1,5 @@
 package tk.tcomad.testsystem.service;
 
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +9,16 @@ import tk.tcomad.testsystem.model.domain.Question;
 import tk.tcomad.testsystem.model.domain.TestSession;
 import tk.tcomad.testsystem.model.mapper.TestSessionMapper;
 import tk.tcomad.testsystem.repository.TestSessionRepository;
+
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,10 +31,10 @@ public class TestSessionService {
 
     public void removeCorrectAnswers(TestSession testSession) {
         testSession.getQuestionSnapshots()
-                   .stream()
-                   .map(Question::getAnswers)
-                   .flatMap(Collection::stream)
-                   .forEach(answer -> answer.setCorrect(null));
+                .stream()
+                .map(Question::getAnswers)
+                .flatMap(Collection::stream)
+                .forEach(answer -> answer.setCorrect(null));
     }
 
     public void saveTestSession(TestSession testSession, TestSession userSession) {
@@ -45,11 +45,10 @@ public class TestSessionService {
         Float score = (float) correctAnswers / questions.size() * 100;
 
         TestSession testSessionToSave = testSession.toBuilder()
-                                                   .elapsedTime(elapsedTime(userSession.getStartTime(),
-                                                                            testSession.getDurationMinutes()))
-                                                   .score(score)
-                                                   .userAnswersByQuestionId(userAnswers)
-                                                   .build();
+                .elapsedTime(elapsedTime(userSession.getStartTime(), testSession.getDurationMinutes()))
+                .score(score)
+                .userAnswersByQuestionId(userAnswers)
+                .build();
 
         testSessionRepository.save(testSessionMapper.toDb(testSessionToSave));
     }
@@ -72,20 +71,20 @@ public class TestSessionService {
         }
 
         return Optional.ofNullable(questions)
-                       .orElse(Set.of())
-                       .stream()
-                       .filter(question -> compareAnswers(question.getAnswers(),
-                                                          userAnswersByQuestionId.get(question.getId())))
-                       .count();
+                .orElse(Set.of())
+                .stream()
+                .filter(question -> compareAnswers(question.getAnswers(),
+                        userAnswersByQuestionId.get(question.getId())))
+                .count();
     }
 
     private boolean compareAnswers(List<Answer> questionAnswers, Set<String> userAnswers) {
         Set<String> correctAnswers = Optional.ofNullable(questionAnswers)
-                                             .orElse(List.of())
-                                             .stream()
-                                             .filter(Answer::getCorrect)
-                                             .map(Answer::getText)
-                                             .collect(Collectors.toSet());
+                .orElse(List.of())
+                .stream()
+                .filter(Answer::getCorrect)
+                .map(Answer::getText)
+                .collect(Collectors.toSet());
 
         return Objects.equals(correctAnswers, userAnswers);
     }

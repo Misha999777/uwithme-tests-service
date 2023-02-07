@@ -23,13 +23,13 @@ public class KeycloakConfig {
                                   @Value("${keycloak.auth-server-url}") String serverUrl) {
 
         var keycloak = KeycloakBuilder.builder()
-                                      .serverUrl(serverUrl)
-                                      .realm(realm)
-                                      .clientId(clientId)
-                                      .clientSecret(clientSecret)
-                                      .scope("openid")
-                                      .grantType("client_credentials")
-                                      .build();
+                .serverUrl(serverUrl)
+                .realm(realm)
+                .clientId(clientId)
+                .clientSecret(clientSecret)
+                .scope("openid")
+                .grantType("client_credentials")
+                .build();
 
         return keycloak.realm(realm).users();
     }

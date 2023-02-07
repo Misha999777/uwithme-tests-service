@@ -13,7 +13,7 @@ export class PaginatorComponent {
     pages: number;
     currentPage: number;
 
-    constructor(private store: Store<{student: StudentState}>) {
+    constructor(private store: Store<{ student: StudentState }>) {
         store.select("student")
             .subscribe(state => this.pages = state.testSession.questionSnapshots.length)
     }

@@ -8,24 +8,20 @@
             <mat-expansion-panel hideToggle>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
-                        {{selectedQuestion.answers[i] == null ? 'Додати варіант' : selectedQuestion.answers[i].text}}
+                        {{selectedQuestion.answers[i]?.text ?? 'Додати варіант'}}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-form-field class="full-width">
                     <mat-label>Текст відповіді</mat-label>
-                    <input matInput
-                           value="{{selectedQuestion.answers[i]?.text}}"
-                           (input)="answerChanged(text.value, correct.checked, i)"
-                           #text>
+                    <input #text (input)="answerChanged(text.value, correct.checked, i)" matInput
+                           value="{{selectedQuestion.answers[i]?.text}}">
                 </mat-form-field>
-                <mat-slide-toggle
-                        checked="{{selectedQuestion.answers[i] == null ? false : selectedQuestion.answers[i].correct}}"
-                        (change)="answerChanged(text.value, correct.checked, i)"
-                        #correct>
+                <mat-slide-toggle #correct (change)="answerChanged(text.value, correct.checked, i)"
+                                  checked="{{selectedQuestion.answers[i]?.correct ?? false}}">
                 </mat-slide-toggle>
             </mat-expansion-panel>
         </div>
     </mat-accordion>
     <br>
-    <button mat-raised-button (click)="save()">Зберегти</button>
+    <button (click)="save()" mat-raised-button>Зберегти</button>
 </testsystem-menu>

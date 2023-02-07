@@ -1,8 +1,5 @@
 package tk.tcomad.testsystem.builder;
 
-import java.time.Instant;
-import java.util.Set;
-
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,6 +11,9 @@ import tk.tcomad.testsystem.model.mapper.TestMapper;
 import tk.tcomad.testsystem.provider.QuestionProvider;
 import tk.tcomad.testsystem.repository.TestRepository;
 import tk.tcomad.testsystem.security.UserContextHolder;
+
+import java.time.Instant;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -35,16 +35,16 @@ public class TestSessionBuilder {
 
     public TestSession build() {
         Test test = testRepository.findById(testId)
-                                  .map(testMapper::toDomain)
-                                  .orElseThrow(() -> new NotFoundException("Test not found"));
+                .map(testMapper::toDomain)
+                .orElseThrow(() -> new NotFoundException("Test not found"));
         Set<Question> questions = questionProvider.getQuestionsByTestId(testId);
 
         return TestSession.builder()
-                          .testId(testId)
-                          .userId(UserContextHolder.getUserId())
-                          .startTime(Instant.now())
-                          .questionSnapshots(questions)
-                          .durationMinutes(test.getDurationMinutes())
-                          .build();
+                .testId(testId)
+                .userId(UserContextHolder.getUserId())
+                .startTime(Instant.now())
+                .questionSnapshots(questions)
+                .durationMinutes(test.getDurationMinutes())
+                .build();
     }
 }

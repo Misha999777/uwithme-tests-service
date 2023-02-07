@@ -1,4 +1,4 @@
-import { createReducer, on } from '@ngrx/store';
+import {createReducer, on} from '@ngrx/store';
 import {Test} from "../../model/Test";
 import {Question} from "../../model/Question";
 import {setQuestion, setTest, setTests} from "./admin.actions";

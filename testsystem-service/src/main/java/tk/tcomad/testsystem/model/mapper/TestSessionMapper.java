@@ -1,7 +1,5 @@
 package tk.tcomad.testsystem.model.mapper;
 
-import static org.apache.logging.log4j.util.Chars.SPACE;
-
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.mapstruct.AfterMapping;
@@ -15,6 +13,8 @@ import tk.tcomad.testsystem.model.domain.TestSession;
 import tk.tcomad.testsystem.model.persistence.TestSessionDb;
 import tk.tcomad.testsystem.repository.TestRepository;
 import tk.tcomad.testsystem.security.UserContextHolder;
+
+import static org.apache.logging.log4j.util.Chars.SPACE;
 
 @Mapper(config = MapperConfiguration.class)
 public abstract class TestSessionMapper {
@@ -33,8 +33,8 @@ public abstract class TestSessionMapper {
     @AfterMapping
     protected void map(@MappingTarget TestSession.TestSessionBuilder target, TestSessionDb db) {
         final int durationMinutes = testRepository.findById(db.getTestId())
-                                                  .orElseThrow(() -> new NotFoundException("Test not found"))
-                                                  .getDurationMinutes();
+                .orElseThrow(() -> new NotFoundException("Test not found"))
+                .getDurationMinutes();
 
         UserRepresentation keycloakUser = usersResource.get(UserContextHolder.getUserId()).toRepresentation();
         String userName = keycloakUser.getLastName() + SPACE + keycloakUser.getFirstName();

@@ -1,9 +1,5 @@
 package tk.tcomad.testsystem.endpoint;
 
-import java.util.Objects;
-
-import javax.transaction.Transactional;
-
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,6 +23,9 @@ import tk.tcomad.testsystem.repository.TestSessionRepository;
 import tk.tcomad.testsystem.security.UserContextHolder;
 import tk.tcomad.testsystem.service.TestSessionService;
 
+import javax.transaction.Transactional;
+import java.util.Objects;
+
 @RestController
 @RequestMapping("/test/{testId}/session")
 @RequiredArgsConstructor
@@ -45,7 +44,7 @@ public class TestSessionEndpoint {
     @GetMapping("/{sessionId}")
     public TestSession getSession(@PathVariable String testId, @PathVariable Long sessionId) {
         TestSessionDb testSession = testSessionRepository.findByTestIdAndId(testId, sessionId)
-                                                         .orElseThrow(() -> new NotFoundException("Session not found"));
+                .orElseThrow(() -> new NotFoundException("Session not found"));
 
         return testSessionMapper.toDomain(testSession);
     }
@@ -61,12 +60,11 @@ public class TestSessionEndpoint {
     @PostMapping
     public TestSession beginTest(@PathVariable String testId) {
         testSessionRepository.findByUserIdAndTestId(UserContextHolder.getUserId(), testId)
-                             .ifPresent((ts) -> {
-                                 throw new BadRequestException("Already done");
-                             });
+                .ifPresent((ts) -> {
+                    throw new BadRequestException("Already done");
+                });
 
-        TestSessionDb toSave = testSessionMapper.toDb(testSessionBuilder.withTestId(testId)
-                                                                        .build());
+        TestSessionDb toSave = testSessionMapper.toDb(testSessionBuilder.withTestId(testId).build());
         TestSession saved = testSessionMapper.toDomain(testSessionRepository.save(toSave));
 
         testSessionService.removeCorrectAnswers(saved);
@@ -77,8 +75,8 @@ public class TestSessionEndpoint {
     @PutMapping
     public TestSession endTest(@PathVariable String testId, @RequestBody TestSession testSessionApi) {
         TestSession testSession = testSessionRepository.findByTestIdAndId(testId, testSessionApi.getId())
-                                                       .map(testSessionMapper::toDomain)
-                                                       .orElseThrow(() -> new NotFoundException("Session not found"));
+                .map(testSessionMapper::toDomain)
+                .orElseThrow(() -> new NotFoundException("Session not found"));
 
         if (!Objects.equals(testSession.getUserId(), UserContextHolder.getUserId())) {
             throw new BadRequestException("Not an author");

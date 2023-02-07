@@ -1,7 +1,5 @@
 <div class="pagination">
-    <div *for="pages; let page = index"
-         [ngClass]="{active:currentPage === page}"
-         (click)="setPage(page)"
+    <div (click)="setPage(page)" *for="pages; let page = index" [ngClass]="{active:currentPage === page}"
          class="page-item">
         {{page + 1}}
     </div>

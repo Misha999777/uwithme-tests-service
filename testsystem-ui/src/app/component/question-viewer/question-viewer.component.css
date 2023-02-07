@@ -19,3 +19,11 @@
     padding-bottom: 25px;
     padding-top: 25px;
 }
+
+.flex {
+    display: flex;
+}
+
+.radio-text {
+    padding-top: 12px
+}

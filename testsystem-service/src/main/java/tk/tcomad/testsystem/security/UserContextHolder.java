@@ -1,8 +1,8 @@
 package tk.tcomad.testsystem.security;
 
-import java.util.Optional;
-
 import org.keycloak.representations.AccessToken;
+
+import java.util.Optional;
 
 public class UserContextHolder {
 
@@ -14,8 +14,8 @@ public class UserContextHolder {
 
     public static void setUserId(AccessToken user) {
         String userId = Optional.ofNullable(user)
-                                .map(AccessToken::getSubject)
-                                .orElse(null);
+                .map(AccessToken::getSubject)
+                .orElse(null);
 
         threadLocalScope.set(userId);
     }

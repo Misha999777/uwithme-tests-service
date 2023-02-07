@@ -13,13 +13,13 @@ export class GuardService implements CanActivate {
 
     constructor(private router: Router,
                 private userUtility: UserService,
-                private store: Store<{student: StudentState}>) {
+                private store: Store<{ student: StudentState }>) {
 
         this.store.select("student")
             .subscribe(state => this.studentState = state);
     }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean  {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         if (!this.userUtility.isLoggedIn()) {
             this.redirect(route, "auth");
             return false;

@@ -4,7 +4,8 @@
 
 ## Description
 
-System for testing students. Uses [Spring Boot](http://projects.spring.io/spring-boot/) and [Angular](https://angular.io).
+System for testing students. Uses [Spring Boot](http://projects.spring.io/spring-boot/)
+and [Angular](https://angular.io).
 
 ## Requirements
 
@@ -22,23 +23,30 @@ You can run this application by
 
 1. Downloading [Docker files](https://github.com/HappyMary16/uwithme-docker-files)
 2. Starting them with
+
 ```shell
 docker compose up -d
 ```
+
 3. Starting testsystem-service with
+
 ```shell
 mvn spring-boot:run
 ```
+
 4. Installing dependencies of testsystem-ui with
+
 ```shell
 npm install
 ```
+
 5. Starting testsystem-ui with
+
 ```shell
 npx ng serve
 ```
 
 ## Copyright
 
-Released under the Apache License 2.0. See the [LICENSE](https://github.com/Misha999777/U-With-Me-Tests/blob/angular/LICENSE)
-file.
+Released under the Apache License 2.0.
+See the [LICENSE](https://github.com/Misha999777/U-With-Me-Tests/blob/angular/LICENSE) file.

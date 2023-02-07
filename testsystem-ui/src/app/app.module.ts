@@ -17,7 +17,7 @@ import {FormsModule} from "@angular/forms";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {EditQuestionComponent} from "./page/edit-question/edit-question.component";
 import {MatExpansionModule} from "@angular/material/expansion";
-import {StoreModule} from "@ngrx/store";
+import {MetaReducer, StoreModule} from "@ngrx/store";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatCheckboxModule} from "@angular/material/checkbox";
@@ -44,6 +44,13 @@ import {ForDirective} from "./directive/for.directive";
 import {PlainPipe} from "./pipe/plain.pipe";
 import {CKEditorModule} from "ckeditor4-angular";
 
+export const metaReducers: MetaReducer[] = [
+    localStorageSync({
+        keys: ['student'],
+        rehydrate: true
+    })
+];
+
 @NgModule({
     declarations: [
         ForDirective,
@@ -64,12 +71,7 @@ import {CKEditorModule} from "ckeditor4-angular";
             admin: adminReducer,
             student: studentReducer
         }, {
-            metaReducers: [
-                localStorageSync({
-                    keys: ['student'],
-                    rehydrate: true
-                })
-            ],
+            metaReducers: metaReducers
         }),
         EffectsModule.forRoot([
             AdminEffects
@@ -108,4 +110,5 @@ import {CKEditorModule} from "ckeditor4-angular";
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

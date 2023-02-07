@@ -1,17 +1,17 @@
 <div class="app-container">
-    <mat-chip-list *ngIf="mobile">
-        <mat-chip *ngFor="let test of (tests|async).tests">
+    <mat-chip-listbox *ngIf="mobile">
+        <mat-chip-option *ngFor="let test of tests">
             <a (click)="setTest(test)">{{test.name}}</a>
-        </mat-chip>
-    </mat-chip-list>
-    <div class="sidenav" *ngIf="!mobile">
+        </mat-chip-option>
+    </mat-chip-listbox>
+    <div *ngIf="!mobile" class="sidenav">
         <h3>Ваші тести:</h3>
         <mat-nav-list>
-            <mat-list-item *ngFor="let test of (tests|async).tests">
+            <mat-list-item *ngFor="let test of tests">
                 <a (click)="setTest(test)">{{test.name}}</a>
             </mat-list-item>
             <br>
-            <button mat-raised-button (click)="createTest()">Створити тест</button>
+            <button (click)="createTest()" mat-raised-button>Створити тест</button>
         </mat-nav-list>
     </div>
     <div class="main-content">

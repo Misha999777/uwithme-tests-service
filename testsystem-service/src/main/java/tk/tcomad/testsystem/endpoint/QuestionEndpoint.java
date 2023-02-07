@@ -1,10 +1,5 @@
 package tk.tcomad.testsystem.endpoint;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.transaction.Transactional;
-
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +19,10 @@ import tk.tcomad.testsystem.model.persistence.QuestionDb;
 import tk.tcomad.testsystem.repository.QuestionRepository;
 import tk.tcomad.testsystem.repository.TestRepository;
 
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
 @RequestMapping("tests/{testId}/questions")
@@ -39,16 +38,17 @@ public class QuestionEndpoint {
 
     @GetMapping
     public List<Question> getTestQuestions(@PathVariable String testId) {
-        return questionRepository.findAllByTestId(testId).stream()
-                                 .map(questionMapper::toDomain)
-                                 .collect(Collectors.toList());
+        return questionRepository.findAllByTestId(testId)
+                .stream()
+                .map(questionMapper::toDomain)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{questionId}")
     public Question getQuestion(@PathVariable String testId, @PathVariable Long questionId) {
         return questionRepository.findByTestIdAndId(testId, questionId)
-                                 .map(questionMapper::toDomain)
-                                 .orElseThrow(() -> new NotFoundException("Question not found"));
+                .map(questionMapper::toDomain)
+                .orElseThrow(() -> new NotFoundException("Question not found"));
     }
 
     @PostMapping

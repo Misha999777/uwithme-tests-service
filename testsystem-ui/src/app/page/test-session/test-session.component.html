@@ -1,15 +1,11 @@
 <div style="font-size: 1.3rem">
     <div class="control">
         <br>
-        <cd-timer class="timer" format="ms"
-                  [countdown]="true"
-                  [startTime]="leftTime"
-                  (onComplete)="endTest()">
-        </cd-timer>
+        <cd-timer (onComplete)="end()" [countdown]="true" [startTime]="leftTime" class="timer" format="ms"></cd-timer>
         <br>
-        <button mat-raised-button (click)="endTest()">Завершити тест</button>
+        <button (click)="end()" mat-raised-button>Завершити тест</button>
     </div>
-    <testsystem-question-viewer style="font-size: 1.5rem"></testsystem-question-viewer>
+    <testsystem-question-viewer></testsystem-question-viewer>>
     <br>
     <div class="paginator">
         <testsystem-paginator></testsystem-paginator>

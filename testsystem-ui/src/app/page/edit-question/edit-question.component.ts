@@ -18,7 +18,7 @@ export class EditQuestionComponent {
     selectedQuestion: Question = new Question();
     selectedTestId: string;
 
-    constructor(private store: Store<{admin: State}>,
+    constructor(private store: Store<{ admin: State }>,
                 private dataService: DataService,
                 private router: Router) {
         this.store.select('admin')
