@@ -1,6 +1,6 @@
 # TestSystem
 
-[![License](http://img.shields.io/:license-apache-blue.svg)](https://github.com/Misha999777/U-With-Me-Tests/blob/angular/LICENSE)
+[![License](https://img.shields.io/:license-GPL-blue.svg)](https://github.com/Misha999777/U-With-Me-Tests/blob/angular/LICENSE)
 
 ## Description
 
@@ -48,5 +48,5 @@ npx ng serve
 
 ## Copyright
 
-Released under the Apache License 2.0.
+Released under the GNU General Public License v2.0.
 See the [LICENSE](https://github.com/Misha999777/U-With-Me-Tests/blob/angular/LICENSE) file.
