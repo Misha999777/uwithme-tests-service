@@ -1,8 +1,3 @@
-# Project exclude paths
 /.idea/
 /log/
-/testsystem-service/target/
-/testsystem-ui/target/
-/testsystem-ui/dist/
-/testsystem-ui/node_modules/
-/testsystem-ui/.angular/
+/target/

@@ -1,11 +1,11 @@
-# TestSystem
+# University With Me Test System
 
-[![License](https://img.shields.io/:license-GPL-blue.svg)](https://github.com/Misha999777/U-With-Me-Tests/blob/angular/LICENSE)
+[![License](https://img.shields.io/:license-GPL-blue.svg)](https://github.com/Misha999777/uwithme-testsystem-service/blob/master/LICENSE)
 
 ## Description
 
 System for testing students. Uses [Spring Boot](http://projects.spring.io/spring-boot/)
-and [Angular](https://angular.io).
+
 
 ## Requirements
 
@@ -13,8 +13,6 @@ For building the application you will need:
 
 - [JDK](https://openjdk.java.net/projects/jdk/11/)
 - [Maven](https://maven.apache.org/)
-- [Node.js](https://nodejs.org/)
-- [NPM](https://www.npmjs.com/)
 - [Docker](https://www.docker.com/)
 
 ## Running the application locally
@@ -34,19 +32,7 @@ docker compose up -d
 mvn spring-boot:run
 ```
 
-4. Installing dependencies of testsystem-ui with
-
-```shell
-npm install
-```
-
-5. Starting testsystem-ui with
-
-```shell
-npx ng serve
-```
-
 ## Copyright
 
 Released under the GNU General Public License v2.0.
-See the [LICENSE](https://github.com/Misha999777/U-With-Me-Tests/blob/angular/LICENSE) file.
+See the [LICENSE](https://github.com/Misha999777/uwithme-testsystem-service/blob/master/LICENSE) file.
