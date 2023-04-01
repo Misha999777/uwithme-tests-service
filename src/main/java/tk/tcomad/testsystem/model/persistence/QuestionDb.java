@@ -28,6 +28,7 @@ public class QuestionDb implements Serializable {
 
     private String testId;
 
+    @Column(columnDefinition="TEXT")
     private String text;
 
     @Type(type = "jsonb")
