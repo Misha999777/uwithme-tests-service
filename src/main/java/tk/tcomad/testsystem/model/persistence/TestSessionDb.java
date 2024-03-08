@@ -1,26 +1,20 @@
 package tk.tcomad.testsystem.model.persistence;
 
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.Data;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import tk.tcomad.testsystem.model.domain.Question;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Set;
 
 @Entity
-@TypeDefs({
-        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
-})
 @Data
 public class TestSessionDb implements Serializable {
 
@@ -38,11 +32,9 @@ public class TestSessionDb implements Serializable {
 
     private Float score;
 
-    @Type(type = "jsonb")
-    @Column(columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     private Set<Question> questionSnapshots;
 
-    @Type(type = "jsonb")
-    @Column(columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
     private Map<Long, Set<String>> userAnswersByQuestionId;
 }

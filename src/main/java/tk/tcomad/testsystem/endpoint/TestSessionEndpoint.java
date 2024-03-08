@@ -15,10 +15,11 @@ import tk.tcomad.testsystem.model.domain.TestSession;
 import tk.tcomad.testsystem.model.mapper.TestSessionMapper;
 import tk.tcomad.testsystem.model.persistence.TestSessionDb;
 import tk.tcomad.testsystem.repository.TestSessionRepository;
-import tk.tcomad.testsystem.security.UserContextHolder;
 import tk.tcomad.testsystem.service.TestSessionService;
 
 import java.util.Objects;
+
+import static tk.tcomad.testsystem.security.SecurityContextUtils.getUserId;
 
 @RestController
 @RequestMapping("/tests/{testId}/sessions")
@@ -36,7 +37,7 @@ public class TestSessionEndpoint {
 
     @GetMapping
     public TestSession generateStudentSession(@PathVariable String testId) {
-        TestSessionDb testSession = testSessionRepository.findByUserIdAndTestId(UserContextHolder.getUserId(), testId)
+        TestSessionDb testSession = testSessionRepository.findByUserIdAndTestId(getUserId(), testId)
                 .orElseGet(() -> {
                     TestSessionDb toSave = testSessionMapper.toDb(testSessionBuilder.withTestId(testId).build());
                     return testSessionRepository.save(toSave);
@@ -54,7 +55,7 @@ public class TestSessionEndpoint {
                 .map(testSessionMapper::toDomain)
                 .orElseThrow(() -> new NotFoundException("Session not found"));
 
-        if (!Objects.equals(testSession.getUserId(), UserContextHolder.getUserId())) {
+        if (!Objects.equals(testSession.getUserId(), getUserId())) {
             throw new BadRequestException("Not an author");
         }
 

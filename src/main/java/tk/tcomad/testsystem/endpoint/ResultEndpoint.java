@@ -1,5 +1,6 @@
 package tk.tcomad.testsystem.endpoint;
 
+import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,6 @@ import tk.tcomad.testsystem.model.mapper.TestSessionMapper;
 import tk.tcomad.testsystem.model.persistence.TestSessionDb;
 import tk.tcomad.testsystem.repository.TestSessionRepository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 

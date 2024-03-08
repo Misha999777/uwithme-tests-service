@@ -11,10 +11,11 @@ import tk.tcomad.testsystem.model.domain.TestSession;
 import tk.tcomad.testsystem.model.mapper.TestMapper;
 import tk.tcomad.testsystem.provider.QuestionProvider;
 import tk.tcomad.testsystem.repository.TestRepository;
-import tk.tcomad.testsystem.security.UserContextHolder;
 
 import java.time.Instant;
 import java.util.Set;
+
+import static tk.tcomad.testsystem.security.SecurityContextUtils.getUserId;
 
 @Component
 @RequiredArgsConstructor
@@ -40,13 +41,13 @@ public class TestSessionBuilder {
                 .orElseThrow(() -> new NotFoundException("Test not found"));
         Set<Question> questions = questionProvider.getQuestionsByTestId(testId);
 
-        if (questions.size() == 0) {
+        if (questions.isEmpty()) {
             throw new BadRequestException("Test does not have any questions");
         }
 
         return TestSession.builder()
                 .testId(testId)
-                .userId(UserContextHolder.getUserId())
+                .userId(getUserId())
                 .startTime(Instant.now())
                 .questionSnapshots(questions)
                 .durationMinutes(test.getDurationMinutes())

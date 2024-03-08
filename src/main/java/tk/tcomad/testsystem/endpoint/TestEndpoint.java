@@ -22,7 +22,7 @@ import tk.tcomad.testsystem.repository.TestRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static tk.tcomad.testsystem.security.UserContextHolder.getUserId;
+import static tk.tcomad.testsystem.security.SecurityContextUtils.getUserId;
 
 @RestController
 @Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
