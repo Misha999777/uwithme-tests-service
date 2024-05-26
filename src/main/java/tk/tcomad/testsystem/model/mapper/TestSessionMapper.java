@@ -14,7 +14,6 @@ import tk.tcomad.testsystem.model.persistence.TestSessionDb;
 import tk.tcomad.testsystem.repository.TestRepository;
 
 import static org.apache.logging.log4j.util.Chars.SPACE;
-import static tk.tcomad.testsystem.security.SecurityContextUtils.getUserId;
 
 @Mapper(config = MapperConfiguration.class, uses = QuestionMapper.class)
 public abstract class TestSessionMapper {
@@ -36,7 +35,7 @@ public abstract class TestSessionMapper {
                 .orElseThrow(() -> new NotFoundException("Test not found"))
                 .getDurationMinutes();
 
-        UserRepresentation keycloakUser = usersResource.get(getUserId()).toRepresentation();
+        UserRepresentation keycloakUser = usersResource.get(db.getUserId()).toRepresentation();
         String userName = keycloakUser.getLastName() + SPACE + keycloakUser.getFirstName();
 
         target.durationMinutes(durationMinutes);
