@@ -3,7 +3,6 @@ package tk.tcomad.testsystem.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import tk.tcomad.testsystem.exception.BadRequestException;
 import tk.tcomad.testsystem.model.domain.Answer;
 import tk.tcomad.testsystem.model.domain.Question;
 import tk.tcomad.testsystem.model.domain.TestSession;
@@ -45,7 +44,7 @@ public class TestSessionService {
         Float score = (float) correctAnswers / questions.size() * 100;
 
         TestSession testSessionToSave = testSession.toBuilder()
-                .elapsedTime(elapsedTime(userSession.getStartTime(), testSession.getDurationMinutes()))
+                .elapsedTime(elapsedTime(userSession.getStartTime()))
                 .score(score)
                 .userAnswersByQuestionId(userAnswers)
                 .build();
@@ -53,17 +52,11 @@ public class TestSessionService {
         testSessionRepository.save(testSessionMapper.toDb(testSessionToSave));
     }
 
-    private Integer elapsedTime(Instant startedTime, Integer duration) {
+    private Integer elapsedTime(Instant startedTime) {
         Instant now = Instant.now();
-
         Instant difference = now.minus(startedTime.toEpochMilli(), ChronoUnit.MILLIS);
-
-        Instant allowedTime = startedTime.plus(duration + 1, ChronoUnit.MINUTES);
-        if (allowedTime.isBefore(now)) {
-            throw new BadRequestException("Time exceeded");
-        }
-
         int elapsedMinutes = (int) difference.getEpochSecond() / 60;
+
         return elapsedMinutes > 0 ? elapsedMinutes : 1;
     }
 
