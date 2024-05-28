@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface QuestionRepository extends CrudRepository<QuestionDb, Long> {
 
-    List<QuestionDb> findAllByTestId(String testId);
+    List<QuestionDb> findAllByTestIdOrderById(String testId);
 
     Optional<QuestionDb> findByTestIdAndId(String testId, Long questionId);
 

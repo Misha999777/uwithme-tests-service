@@ -32,8 +32,8 @@ public abstract class TestMapper {
 
     @AfterMapping
     protected void map(@MappingTarget TestDb target, Test domain) {
-        List<QuestionDb> questions = questionRepository.findAllByTestId(domain.getId());
-        List<TestSessionDb> results = testSessionRepository.findAllByTestId(domain.getId());
+        List<QuestionDb> questions = questionRepository.findAllByTestIdOrderById(domain.getId());
+        List<TestSessionDb> results = testSessionRepository.findAllByTestIdOrderById(domain.getId());
 
         target.setQuestions(questions);
         target.setResults(results);

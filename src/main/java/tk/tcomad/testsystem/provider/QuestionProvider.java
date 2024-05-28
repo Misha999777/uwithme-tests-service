@@ -34,7 +34,7 @@ public class QuestionProvider {
                 .map(testMapper::toDomain)
                 .orElseThrow(() -> new NotFoundException("Test not found"));
 
-        List<Question> questions = questionRepository.findAllByTestId(testId)
+        List<Question> questions = questionRepository.findAllByTestIdOrderById(testId)
                 .stream()
                 .map(questionMapper::toDomain)
                 .collect(Collectors.toList());

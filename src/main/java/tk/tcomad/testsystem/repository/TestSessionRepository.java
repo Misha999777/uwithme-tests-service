@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface TestSessionRepository extends CrudRepository<TestSessionDb, Long> {
 
-    List<TestSessionDb> findAllByTestId(String testId);
+    List<TestSessionDb> findAllByTestIdOrderById(String testId);
 
     Optional<TestSessionDb> findByUserIdAndTestId(String userId, String testId);
 

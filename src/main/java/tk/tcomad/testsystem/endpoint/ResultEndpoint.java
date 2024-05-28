@@ -33,7 +33,7 @@ public class ResultEndpoint {
 
     @GetMapping
     public List<TestSession> getResults(@PathVariable String testId) {
-        return testSessionRepository.findAllByTestId(testId)
+        return testSessionRepository.findAllByTestIdOrderById(testId)
                 .stream()
                 .map(testSessionMapper::toDomain)
                 .collect(Collectors.toList());

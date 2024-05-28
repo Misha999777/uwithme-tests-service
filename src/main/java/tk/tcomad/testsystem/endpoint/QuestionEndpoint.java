@@ -38,7 +38,7 @@ public class QuestionEndpoint {
 
     @GetMapping
     public List<Question> getTestQuestions(@PathVariable String testId) {
-        return questionRepository.findAllByTestId(testId)
+        return questionRepository.findAllByTestIdOrderById(testId)
                 .stream()
                 .map(questionMapper::toDomain)
                 .collect(Collectors.toList());
