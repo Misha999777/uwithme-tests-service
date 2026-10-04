@@ -5,7 +5,7 @@ RUN apt-get install gettext-base
 
 COPY ./target/TestSystem.jar /usr/app/TestSystem.jar
 
-COPY ./image/application.properties.tmpl /usr/app/application.properties.tmpl
+COPY ./image/application.properties.template /usr/app/application.properties.template
 COPY ./image/substitute.sh /opt/uwm/substitute.sh
 
 WORKDIR /usr/app
