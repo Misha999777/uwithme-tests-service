@@ -1,32 +1,27 @@
 # University With Me Test System
 
-[![License](https://img.shields.io/:license-GPL-blue.svg)](https://github.com/Misha999777/uwithme-testsystem-service/blob/master/LICENSE)
-
-## Description
-
-System for testing students. Uses [Spring Boot](http://projects.spring.io/spring-boot/)
-
+As a component of the broader `University With Me` project, this application provides universities and other educational entities with a platform to set up tests and assess students.
 
 ## Requirements
 
-For building the application you will need:
+To develop the application, you will need:
 
-- [JDK](https://openjdk.java.net/projects/jdk/11/)
+- [JDK](https://openjdk.java.net/projects/jdk/21/)
 - [Maven](https://maven.apache.org/)
 - [Docker](https://www.docker.com/)
 
 ## Running the application locally
 
-You can run this application by
+To run this application, follow these steps:
 
-1. Downloading [Docker files](https://github.com/HappyMary16/uwithme-docker-files)
-2. Starting them with
+1. Download the [Docker files](https://github.com/HappyMary16/uwithme-docker-files).
+2. Start them using:
 
 ```shell
 docker compose up -d
 ```
 
-3. Starting testsystem-service with
+3. Start the `testsystem-service` using:
 
 ```shell
 mvn spring-boot:run
