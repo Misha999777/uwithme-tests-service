@@ -27,6 +27,8 @@ public class TestSessionDb implements Serializable {
 
     private String userId;
 
+    private String userName;
+
     private Instant startTime;
 
     private Integer elapsedTime;

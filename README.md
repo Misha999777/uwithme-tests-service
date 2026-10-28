@@ -6,7 +6,7 @@ As a component of the broader `University With Me` project, this application pro
 
 To develop the application, you will need:
 
-- [JDK](https://openjdk.java.net/projects/jdk/21/)
+- [JDK](https://openjdk.java.net/projects/jdk/25/)
 - [Maven](https://maven.apache.org/)
 - [Docker](https://www.docker.com/)
 

@@ -14,20 +14,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
+        <maven.compiler.proc>full</maven.compiler.proc>
 
-        <lombok.version>1.18.30</lombok.version>
-        <mapstruct.version>1.5.5.Final</mapstruct.version>
-        <postgresql.version>42.7.2</postgresql.version>
-        <hypersistence-utils.version>3.7.3</hypersistence-utils.version>
-        <keycloak.version>24.0.1</keycloak.version>
+        <lombok.version>1.18.48</lombok.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <postgresql.version>42.7.14</postgresql.version>
+        <hypersistence-utils.version>3.16.0</hypersistence-utils.version>
+        <keycloak.version>26.0.12</keycloak.version>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.3</version>
+        <version>4.1.2</version>
     </parent>
 
     <dependencies>
@@ -57,7 +58,7 @@
         </dependency>
         <dependency>
             <groupId>io.hypersistence</groupId>
-            <artifactId>hypersistence-utils-hibernate-63</artifactId>
+            <artifactId>hypersistence-utils-hibernate-73</artifactId>
             <version>${hypersistence-utils.version}</version>
         </dependency>
         <dependency>

@@ -14,6 +14,7 @@ import education.uwithme.testsystem.provider.QuestionProvider;
 import education.uwithme.testsystem.repository.TestRepository;
 
 import static education.uwithme.testsystem.security.SecurityContextUtils.getUserId;
+import static education.uwithme.testsystem.security.SecurityContextUtils.getUserName;
 
 import java.time.Instant;
 import java.util.Set;
@@ -49,6 +50,7 @@ public class TestSessionBuilder {
         return TestSession.builder()
                 .testId(testId)
                 .userId(getUserId())
+                .userName(getUserName())
                 .startTime(Instant.now())
                 .questionSnapshots(questions)
                 .durationMinutes(test.getDurationMinutes())

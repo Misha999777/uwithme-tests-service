@@ -13,6 +13,9 @@ import education.uwithme.testsystem.exception.NotFoundException;
 import education.uwithme.testsystem.model.domain.TestSession;
 import education.uwithme.testsystem.model.persistence.TestSessionDb;
 import education.uwithme.testsystem.repository.TestRepository;
+import education.uwithme.testsystem.repository.TestSessionRepository;
+
+import java.util.Objects;
 
 import static org.apache.logging.log4j.util.Chars.SPACE;
 
@@ -22,10 +25,11 @@ public abstract class TestSessionMapper {
     @Autowired
     private TestRepository testRepository;
     @Autowired
+    private TestSessionRepository testSessionRepository;
+    @Autowired
     private UsersResource usersResource;
 
     @Mapping(target = "durationMinutes", ignore = true)
-    @Mapping(target = "userName", ignore = true)
     public abstract TestSession toDomain(TestSessionDb testSession);
 
     public abstract TestSessionDb toDb(TestSession testSessionApi);
@@ -36,10 +40,16 @@ public abstract class TestSessionMapper {
                 .orElseThrow(() -> new NotFoundException("Test not found"))
                 .getDurationMinutes();
 
-        UserRepresentation keycloakUser = usersResource.get(db.getUserId()).toRepresentation();
-        String userName = keycloakUser.getLastName() + SPACE + keycloakUser.getFirstName();
-
         target.durationMinutes(durationMinutes);
-        target.userName(userName);
+
+        if (Objects.isNull(db.getUserName())) {
+            UserRepresentation keycloakUser = usersResource.get(db.getUserId()).toRepresentation();
+            String userName = keycloakUser.getLastName() + SPACE + keycloakUser.getFirstName();
+
+            db.setUserName(userName);
+            testSessionRepository.save(db);
+
+            target.userName(userName);
+        }
     }
 }

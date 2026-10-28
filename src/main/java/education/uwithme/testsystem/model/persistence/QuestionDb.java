@@ -1,5 +1,6 @@
 package education.uwithme.testsystem.model.persistence;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class QuestionDb implements Serializable {
 
     private String testId;
 
+    @Column(columnDefinition = "TEXT")
     private String text;
 
     @JdbcTypeCode(SqlTypes.JSON)

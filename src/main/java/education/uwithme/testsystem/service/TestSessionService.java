@@ -45,7 +45,7 @@ public class TestSessionService {
         Float score = (float) correctAnswers / questions.size() * 100;
 
         TestSession testSessionToSave = testSession.toBuilder()
-                .elapsedTime(elapsedTime(userSession.getStartTime()))
+                .elapsedTime(elapsedTime(testSession.getStartTime()))
                 .score(score)
                 .userAnswersByQuestionId(userAnswers)
                 .build();
