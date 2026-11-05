@@ -1,8 +1,9 @@
 #!/bin/sh
+set -euo pipefail
 
 SCHEMA=http://
 
-if [ "$SSL_ENABLED" = "true" ]; then
+if [ "${SSL_ENABLED:-}" = "true" ]; then
     SCHEMA=https://
 fi
 
